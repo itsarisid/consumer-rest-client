@@ -12,6 +12,15 @@ IConfiguration config = host.Services.GetRequiredService<IConfiguration>();
 
 var appSettings = config.GetSection("Setting").Get<AppSettings>();
 
+
+var configuration = new ConfigurationBuilder()
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+
+var logger = new Logger(configuration);
+
+logger.InitializeLogger();
+
 // Get values from the config given their key and their target type.
 var appName = config.GetValue<string>("AppName");
 Console.WriteLine($"Application Name is: {appName}");
