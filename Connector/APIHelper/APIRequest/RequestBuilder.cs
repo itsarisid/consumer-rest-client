@@ -23,14 +23,30 @@ namespace Connector.APIHelper.APIRequest
         /// <returns>
         ///   <br />
         /// </returns>
-        private static AbstractRequest GetRequest()
+        private AbstractRequest GetRequest()
         {
-            Log.Logger.Information("/api/commerce/shipments");
-            // GET end point URL
-            string getUrl = "/api/commerce/shipments?pageSize=500&filter=auditInfo.updateDate%3Dge%3D2023-08-08T05%3A00%3A00.000Z%20and%20auditInfo.updateDate%3Dle%3D2023-09-18T04%3A59%3A59.999Z%20and%20shipmentStatus%3Deq%3DCANCELED";
+            var requestData = _settings.Requests.First();
 
-            return new GetRequestBuilder()
-                  .WithUrl(getUrl);
+            Log.Logger.Information(requestData.Uri);
+
+            var request = new GetRequestBuilder()
+                  .WithUrl(requestData.Uri);
+
+            if (requestData.Headers.AnyOrNotNull())
+            {
+                var headers = requestData.Headers.ToDictionary(v => v.Key, v => v.Value); ;
+
+                request.WithHeaders(headers);
+            }
+
+            if (requestData.Parameters.AnyOrNotNull())
+            {
+                var parameters = requestData.Parameters.ToDictionary(v => v.Key, v => v.Value); ;
+
+                request.WithQueryParameters(parameters);
+            }
+
+            return request;
         }
 
         /// <summary>Posts the request.</summary>

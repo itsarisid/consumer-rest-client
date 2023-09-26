@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Connector.Models
 {
@@ -6,19 +7,13 @@ namespace Connector.Models
     {
         public string Method { get; set; }
         public string Uri { get; set; }
-        public List<HeaderModel> Headers { get; set; }
-        public List<ParameterModel> Parameters { get; set; }
+        public List<KeyValueParameter> Headers { get; set; }
+        public List<KeyValueParameter> Parameters { get; set; }
     }
 
-    public class HeaderModel
+    public class KeyValueParameter
     {
-        [JsonProperty("app-id")]
-        public string appid { get; set; }
-    }
-
-    public class ParameterModel
-    {
-        [JsonProperty("app-id")]
-        public string appid { get; set; }
+        public string Key { get; set; } 
+        public string Value { get; set; }
     }
 }

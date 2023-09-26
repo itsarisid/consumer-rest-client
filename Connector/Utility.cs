@@ -21,5 +21,19 @@
             }
             return resultInputType;
         }
+
+        /// <summary>Any the or not null.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        public static bool AnyOrNotNull<T>(this IEnumerable<T> source)
+        {
+            if (source != null && source.Any())
+                return true;
+            else
+                return false;
+        }
     }
 }

@@ -21,10 +21,6 @@ var logger = new Logger(configuration);
 
 logger.InitializeLogger();
 
-// Get values from the config given their key and their target type.
-var appName = config.GetValue<string>("AppName");
-Console.WriteLine($"Application Name is: {appName}");
-
 var connector = new AppConnector(appSettings);
 
 await connector.RunAsync();
