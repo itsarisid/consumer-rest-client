@@ -4,16 +4,8 @@ using RestSharp.Authenticators;
 
 namespace Connector.APIHelper.Client
 {
-    public class AuthenticationDecorator : IClient
+    public class AuthenticationDecorator(IClient _client, AuthenticatorBase _authenticatorBase) : IClient
     {
-        private readonly IClient _client;
-        private readonly AuthenticatorBase _authenticatorBase;
-
-        public AuthenticationDecorator(IClient client, AuthenticatorBase authenticator) // Default Client
-        {
-            _client = client;
-            _authenticatorBase = authenticator;
-        }
         public void Dispose()
         {
             _client.Dispose();

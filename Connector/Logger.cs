@@ -1,20 +1,11 @@
 ﻿using Serilog.Events;
 using Serilog;
-using Serilog.Formatting.Json;
 using Microsoft.Extensions.Configuration;
-using System.Configuration;
-using Serilog.Formatting.Compact;
 
 namespace Connector
 {
-    public class Logger
+    public class Logger(IConfigurationRoot _configuration)
     {
-        private IConfigurationRoot _configuration;
-        public Logger(IConfigurationRoot configuration)
-        {
-            _configuration = configuration;
-        }
-
         public void InitializeLogger()
         {
             Log.Logger = new LoggerConfiguration()

@@ -4,17 +4,8 @@ using Connector.APIHelper.Interface;
 
 namespace Connector.APIHelper.Command
 {
-    public class RequestCommand : ICommand
+    public class RequestCommand(AbstractRequest _abstractRequest, IClient _client) : ICommand
     {
-        private readonly IClient _client;
-        private readonly AbstractRequest _abstractRequest;
-
-        public RequestCommand(AbstractRequest abstractRequest, IClient client)
-        {
-            _abstractRequest = abstractRequest;
-            _client = client;
-        }
-
         public byte[] DownloadData()
         {
             throw new System.NotImplementedException("Use the Download Command for File Download");

@@ -1,22 +1,10 @@
 ﻿using Connector.APIHelper.Interface;
 using RestSharp;
-using RestSharp.Authenticators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Connector.APIHelper.Client
 {
-    public class BasicAuthDecorator : IClient
+    public class BasicAuthDecorator(IClient _client) : IClient
     {
-        private readonly IClient _client;
-
-        public BasicAuthDecorator(IClient client) // Default Client //Tracer Client
-        {
-            _client = client;
-        }
         public void Dispose()
         {
             _client.Dispose();

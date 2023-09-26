@@ -1,4 +1,6 @@
-﻿namespace Connector.Models
+﻿using RestSharp;
+
+namespace Connector.Models
 {
     public class AppSettings
     {
@@ -7,5 +9,8 @@
         public AuthenticatorType AuthenticatorType { get; set; }
         public AuthenticationParameter? AuthenticationParameter { get; set; }
         public string? OutputDirectory { get; set; }
+        public Method Method { get; set; }
+        public List<RequestModel> Requests { get; set; }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿// Ignore Spelling: Api
+using RestSharp;
 
 namespace Connector.APIHelper.APIRequest
 {

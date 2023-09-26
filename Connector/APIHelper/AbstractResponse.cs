@@ -3,18 +3,8 @@ using RestSharp;
 using System.Net;
 namespace Connector.APIHelper
 {
-    public abstract class AbstractResponse : IResponse
+    public abstract class AbstractResponse(RestResponse _restResponse) : IResponse
     {
-        /// <summary>The rest response</summary>
-        private readonly RestResponse _restResponse;
-
-        /// <summary>Initializes a new instance of the <see cref="AbstractResponse" /> class.</summary>
-        /// <param name="restResponse">The rest response.</param>
-        public AbstractResponse(RestResponse restResponse)
-        {
-            _restResponse = restResponse;
-        }
-
         /// <summary>Gets the exception.</summary>
         /// <returns>
         ///   <br />

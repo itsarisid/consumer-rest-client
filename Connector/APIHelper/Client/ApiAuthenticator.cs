@@ -10,11 +10,11 @@ namespace Connector.Client
     /// </summary>
     public class ApiAuthenticator
     {
-        private string token;
-        private string consumerKey;
-        private string consumerSecret;
-        private string username;
-        private string password;
+        private readonly string token;
+        private readonly string consumerKey;
+        private readonly string consumerSecret;
+        private readonly string username;
+        private readonly string password;
 
 
         /// <summary>Initializes a new instance of the <see cref="ApiAuthenticator" /> class.</summary>
