@@ -1,4 +1,4 @@
-namespace ConnectorTest
+namespace Test.Connector
 {
     public class Tests
     {
