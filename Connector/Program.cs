@@ -12,19 +12,16 @@ IConfiguration config = host.Services.GetRequiredService<IConfiguration>();
 
 var appSettings = config.GetSection("Setting").Get<AppSettings>();
 
+var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
-var configuration = new ConfigurationBuilder()
-                    .AddJsonFile("appsettings.json")
-                    .Build();
-
-var logger = new Logger(configuration);
+Logger logger = new(configuration);
 
 logger.InitializeLogger();
 
 //Exception handle.
 AppDomain.CurrentDomain.UnhandledException += Utility.UnhandledExceptionTrapper;
 
-var connector = new AppConnector(appSettings);
+AppConnector connector = new(appSettings);
 
 await connector.RunAsync();
 
