@@ -21,6 +21,9 @@ var logger = new Logger(configuration);
 
 logger.InitializeLogger();
 
+//Exception handle.
+AppDomain.CurrentDomain.UnhandledException += Utility.UnhandledExceptionTrapper;
+
 var connector = new AppConnector(appSettings);
 
 await connector.RunAsync();

@@ -1,4 +1,6 @@
-﻿namespace Connector
+﻿using Serilog;
+
+namespace Connector
 {
     public static class Utility
     {
@@ -34,6 +36,11 @@
                 return true;
             else
                 return false;
+        }
+
+        public static void UnhandledExceptionTrapper(object sender, UnhandledExceptionEventArgs e)
+        {
+            Log.Logger.Error(messageTemplate: e.ExceptionObject.ToString());
         }
     }
 }
