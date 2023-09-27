@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using Connector.Models;
+using RestSharp;
 
 namespace Connector.APIHelper.APIRequest
 {
@@ -54,6 +55,25 @@ namespace Connector.APIHelper.APIRequest
         public GetRequestBuilder WithQueryParameters(Dictionary<string, string> parameters)
         {
             WithQueryParameters(parameters, _restRequest);
+            return this;
+        }
+
+
+        public GetRequestBuilder AddParameters(List<KeyValueParameter> parameters)
+        {
+            if (parameters.AnyOrNotNull())
+            {
+                WithQueryParameters(parameters.ToDictionary(v => v.Key, v => v.Value));
+            }
+            return this;
+        }
+
+        public GetRequestBuilder AddHeader(List<KeyValueParameter> headers)
+        {
+            if (headers.AnyOrNotNull())
+            {
+                WithHeaders(headers.ToDictionary(v => v.Key, v => v.Value));
+            }
             return this;
         }
 

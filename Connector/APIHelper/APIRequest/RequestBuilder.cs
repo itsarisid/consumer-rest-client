@@ -30,21 +30,9 @@ namespace Connector.APIHelper.APIRequest
             Log.Logger.Information(requestData.Uri);
 
             var request = new GetRequestBuilder()
-                  .WithUrl(requestData.Uri);
-
-            if (requestData.Headers.AnyOrNotNull())
-            {
-                var headers = requestData.Headers.ToDictionary(v => v.Key, v => v.Value); ;
-
-                request.WithHeaders(headers);
-            }
-
-            if (requestData.Parameters.AnyOrNotNull())
-            {
-                var parameters = requestData.Parameters.ToDictionary(v => v.Key, v => v.Value); ;
-
-                request.WithQueryParameters(parameters);
-            }
+                  .WithUrl(requestData.Uri)
+                  .AddHeader(requestData.Headers)
+                  .AddParameters(requestData.Parameters);
 
             return request;
         }

@@ -33,9 +33,9 @@ namespace Connector
             // Create request
             RequestBuilder requestBuilder = new(settings);
 
-            var abstractRequest = requestBuilder.BuildRequest();
+            var request = requestBuilder.BuildRequest();
 
-            ICommand getCommand = new RequestCommand(abstractRequest, _client);
+            ICommand getCommand = new RequestCommand(request, _client);
 
             apiExecutor.SetCommand(getCommand);
 
