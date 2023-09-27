@@ -2,6 +2,7 @@
 
 namespace Connector
 {
+    /// <summary>Utility helper class</summary>
     public static class Utility
     {
         /// <summary>Converts to enum.</summary>
@@ -30,14 +31,11 @@ namespace Connector
         /// <returns>
         ///   <br />
         /// </returns>
-        public static bool AnyOrNotNull<T>(this IEnumerable<T> source)
-        {
-            if (source != null && source.Any())
-                return true;
-            else
-                return false;
-        }
+        public static bool AnyOrNotNull<T>(this IEnumerable<T> source) => source != null && source.Any();
 
+        /// <summary>Unhandled the exception trapper.</summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="UnhandledExceptionEventArgs" /> instance containing the event data.</param>
         public static void UnhandledExceptionTrapper(object sender, UnhandledExceptionEventArgs e)
         {
             Log.Logger.Error(messageTemplate: e.ExceptionObject.ToString());

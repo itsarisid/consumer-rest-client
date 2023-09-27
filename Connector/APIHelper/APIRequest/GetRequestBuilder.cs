@@ -58,7 +58,11 @@ namespace Connector.APIHelper.APIRequest
             return this;
         }
 
-
+        /// <summary>Adds the parameters.</summary>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
         public GetRequestBuilder AddParameters(List<KeyValueParameter> parameters)
         {
             if (parameters.AnyOrNotNull())
@@ -68,6 +72,11 @@ namespace Connector.APIHelper.APIRequest
             return this;
         }
 
+        /// <summary>Adds the header.</summary>
+        /// <param name="headers">The headers.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
         public GetRequestBuilder AddHeader(List<KeyValueParameter> headers)
         {
             if (headers.AnyOrNotNull())
@@ -76,6 +85,5 @@ namespace Connector.APIHelper.APIRequest
             }
             return this;
         }
-
     }
 }

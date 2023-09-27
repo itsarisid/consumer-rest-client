@@ -59,7 +59,6 @@ namespace Connector
                 }
             }
 
-
             _client.Dispose();
         }
     }

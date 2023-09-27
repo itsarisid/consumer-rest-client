@@ -6,6 +6,7 @@ namespace Connector
 {
     public class Logger(IConfigurationRoot _configuration)
     {
+        /// <summary>Initializes the logger.</summary>
         public void InitializeLogger()
         {
             Log.Logger = new LoggerConfiguration()
@@ -15,7 +16,6 @@ namespace Connector
                             .Enrich.FromLogContext()
                             .WriteTo.Console()
                             .ReadFrom.Configuration(_configuration)
-                            //.WriteTo.File(new CompactJsonFormatter(), "log.txt")
                             .CreateLogger();
         }
     }

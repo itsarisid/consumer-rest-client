@@ -1,4 +1,5 @@
 ﻿// Ignore Spelling: Api
+using Connector.APIHelper.APIRequest;
 using Connector.Models;
 using RestSharp.Authenticators;
 using RestSharp.Authenticators.OAuth2;
@@ -8,29 +9,8 @@ namespace Connector.Client
     /// <summary>
     ///   <br />
     /// </summary>
-    public class ApiAuthenticator
+    public class ApiAuthenticator(AuthenticationParameter? parameter)
     {
-        private readonly string token;
-        private readonly string consumerKey;
-        private readonly string consumerSecret;
-        private readonly string username;
-        private readonly string password;
-
-
-        /// <summary>Initializes a new instance of the <see cref="ApiAuthenticator" /> class.</summary>
-        /// <param name="parameter">The parameter.</param>
-        public ApiAuthenticator(AuthenticationParameter? parameter)
-        {
-            if (parameter != null)
-            {
-                token = parameter.Token ?? "";
-                consumerKey = parameter.ConsumerKey ?? "";
-                consumerSecret = parameter.ConsumerSecret ?? "";
-                username = parameter.UserName ?? "";
-                password = parameter.Password ?? "";
-            }
-        }
-
         /// <summary>Authenticates the specified authenticator type.</summary>
         /// <param name="authenticatorType">Type of the authenticator.</param>
         /// <returns>
@@ -40,13 +20,12 @@ namespace Connector.Client
         public IAuthenticator? Authenticate(AuthenticatorType authenticatorType) => authenticatorType switch
         {
             AuthenticatorType.None => null,
-            AuthenticatorType.Basic => new HttpBasicAuthenticator(username, password),
-            AuthenticatorType.OAuth1 => OAuth1Authenticator.ForRequestToken(consumerKey, consumerSecret),
-            AuthenticatorType.OAuth2 => new OAuth2AuthorizationRequestHeaderAuthenticator(token, "Bearer"),
-            AuthenticatorType.JWT => new JwtAuthenticator(token),
+            AuthenticatorType.Basic => new HttpBasicAuthenticator(parameter.UserName, parameter.Password),
+            AuthenticatorType.OAuth1 => OAuth1Authenticator.ForRequestToken(parameter.ConsumerKey, parameter.ConsumerSecret),
+            AuthenticatorType.OAuth2 => new OAuth2AuthorizationRequestHeaderAuthenticator(parameter.Token, "Bearer"),
+            AuthenticatorType.JWT => new JwtAuthenticator(parameter.Token),
             AuthenticatorType.Custom => throw new NotImplementedException("Not Implemented custom Authenticator"),
             _ => throw new ArgumentException(message: "invalid authenticator type", paramName: nameof(authenticatorType)),
         };
-
     }
 }

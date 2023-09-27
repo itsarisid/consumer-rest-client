@@ -43,6 +43,5 @@ namespace Connector.APIHelper
                 restRequest.AddParameter(key, parameters[key]);
             }
         }
-        // URL Segments
     }
 }
