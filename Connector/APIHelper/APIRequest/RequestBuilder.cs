@@ -4,7 +4,7 @@ using Serilog;
 
 namespace Connector.APIHelper.APIRequest
 {
-    public class RequestBuilder(AppSettings _settings)
+    public class RequestBuilder(RequestModel _settings)
     {
         /// <summary>Builds the request.</summary>
         /// <returns>
@@ -25,14 +25,12 @@ namespace Connector.APIHelper.APIRequest
         /// </returns>
         private AbstractRequest GetRequest()
         {
-            var requestData = _settings.Requests.First();
-
-            Log.Logger.Information(requestData.Uri);
+            Log.Logger.Information(_settings.Uri);
 
             var request = new GetRequestBuilder()
-                  .WithUrl(requestData.Uri)
-                  .AddHeader(requestData.Headers)
-                  .AddParameters(requestData.Parameters);
+                  .WithUrl(_settings.Uri)
+                  .AddHeader(_settings.Headers)
+                  .AddParameters(_settings.Parameters);
 
             return request;
         }

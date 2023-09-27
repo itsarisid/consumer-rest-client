@@ -30,30 +30,35 @@ namespace Connector
 
             RestApiExecutor apiExecutor = new();
 
-            // Create request
-            RequestBuilder requestBuilder = new(settings);
-
-            var request = requestBuilder.BuildRequest();
-
-            ICommand getCommand = new RequestCommand(request, _client);
-
-            apiExecutor.SetCommand(getCommand);
-
-            var response = apiExecutor.ExecuteRequest();
-
-            var statusCode = response.GetHttpStatusCode();
-
-            if (statusCode != HttpStatusCode.OK)
-                throw new Exception($"Error with status code: {statusCode}");
-            if (statusCode == HttpStatusCode.OK)
+            foreach (var item in settings.Requests)
             {
-                Log.Logger.Information("Status OK");
+                // Create request
+                RequestBuilder requestBuilder = new(item);
 
-                // Read bytes
-                var path = string.IsNullOrEmpty(settings?.OutputDirectory) ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : settings.OutputDirectory;
+                var request = requestBuilder.BuildRequest();
 
-                File.AppendAllText(path + "\\output.json", Environment.NewLine + response.GetResponseData());
+                ICommand getCommand = new RequestCommand(request, _client);
+
+                apiExecutor.SetCommand(getCommand);
+
+                var response = apiExecutor.ExecuteRequest();
+
+                var statusCode = response.GetHttpStatusCode();
+
+                if (statusCode != HttpStatusCode.OK)
+                    throw new Exception($"Error with status code: {statusCode}");
+
+                if (statusCode == HttpStatusCode.OK)
+                {
+                    Log.Logger.Information("Status OK");
+
+                    // Read bytes
+                    var path = string.IsNullOrEmpty(settings?.OutputDirectory) ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : settings.OutputDirectory;
+
+                    File.AppendAllText(path + "\\output.json", Environment.NewLine + response.GetResponseData());
+                }
             }
+
 
             _client.Dispose();
         }

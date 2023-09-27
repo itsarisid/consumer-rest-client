@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RestSharp;
 
 namespace Connector.Models
 {
     public class RequestModel
     {
-        public string Method { get; set; }
+        public Method Method { get; set; }
         public string Uri { get; set; }
         public List<KeyValueParameter> Headers { get; set; }
         public List<KeyValueParameter> Parameters { get; set; }
