@@ -48,9 +48,11 @@ namespace Connector
             if (statusCode == HttpStatusCode.OK)
             {
                 Log.Logger.Information("Status OK");
+
                 // Read bytes
                 var path = string.IsNullOrEmpty(settings?.OutputDirectory) ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : settings.OutputDirectory;
-                File.WriteAllText(path + "\\output.json", response.GetResponseData());
+
+                File.AppendAllText(path + "\\output.json", Environment.NewLine + response.GetResponseData());
             }
 
             _client.Dispose();
