@@ -26,7 +26,9 @@ namespace Connector.APIHelper.Command
             throw new NotImplementedException("Use the Download Command for File Download");
         }
 
-        /// <summary>Executes the request.</summary>
+        /// <summary>
+        /// Executes the request.
+        /// </summary>
         /// <returns>
         ///   <br />
         /// </returns>

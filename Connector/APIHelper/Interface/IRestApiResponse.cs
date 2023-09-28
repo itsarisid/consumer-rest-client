@@ -15,5 +15,9 @@ namespace Connector.APIHelper.Interface
         ///   <br />
         /// </returns>
         Exception GetException();
+
+        /// <summary>Saves the response.</summary>
+        /// <param name="path">The path.</param>
+        void SaveResponse(string path);
     }
 }

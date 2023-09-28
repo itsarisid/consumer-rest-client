@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using Connector.Models;
+using Serilog;
 
 namespace Connector
 {
@@ -40,5 +41,12 @@ namespace Connector
         {
             Log.Logger.Error(messageTemplate: e.ExceptionObject.ToString());
         }
+
+        /// <summary>Gets the name of the endpoint.</summary>
+        /// <param name="endpoint">The endpoint.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        public static string GetEndpointName(this string endpoint) => endpoint.Split('/').Last().ToString();
     }
 }

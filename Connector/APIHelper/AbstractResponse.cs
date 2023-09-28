@@ -22,6 +22,10 @@ namespace Connector.APIHelper
         ///   <br />
         /// </returns>
         public abstract string GetResponseData();
+
+        /// <summary>Saves the response.</summary>
+        /// <param name="path">The path.</param>
+        public abstract void SaveResponse(string path);
     }
 
     /// <summary>
@@ -58,5 +62,9 @@ namespace Connector.APIHelper
         ///   <br />
         /// </returns>
         public abstract T GetResponseData();
+
+        /// <summary>Saves the response.</summary>
+        /// <param name="path">The path.</param>
+        public abstract void SaveResponse(string path);
     }
 }

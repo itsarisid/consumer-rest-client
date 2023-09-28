@@ -23,7 +23,7 @@ AppDomain.CurrentDomain.UnhandledException += Utility.UnhandledExceptionTrapper;
 
 AppConnector connector = new(appSettings);
 
-await connector.RunAsync();
+connector.Run();
 
 // Application code which might rely on the config could start here.
 await host.RunAsync();

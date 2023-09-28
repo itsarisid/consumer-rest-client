@@ -1,4 +1,6 @@
-﻿using RestSharp;
+﻿using Connector.APIHelper.Interface;
+using RestSharp;
+using System.Text;
 
 namespace Connector.APIHelper.APIResponse
 {
@@ -20,6 +22,13 @@ namespace Connector.APIHelper.APIResponse
         ///   <br />
         /// </returns>
         public override string GetResponseData() => _restResponse.Content;
+
+        /// <summary>Saves the response.</summary>
+        /// <param name="path">The path.</param>
+        public override void SaveResponse(string path)
+        {
+            File.AppendAllText(path, Environment.NewLine + _restResponse.Content);
+        }
     }
 
     /// <summary>
@@ -40,5 +49,12 @@ namespace Connector.APIHelper.APIResponse
         ///   <br />
         /// </returns>
         public override T GetResponseData() => _restResponse.Data;
+
+        /// <summary>Saves the response.</summary>
+        /// <param name="path">The path.</param>
+        public override void SaveResponse(string path)
+        {
+            File.AppendAllText(path, Environment.NewLine + _restResponse.Content);
+        }
     }
 }
