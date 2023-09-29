@@ -58,6 +58,17 @@ namespace Connector.APIHelper.APIRequest
             return this;
         }
 
+        /// <summary>Withes the update query parameters.</summary>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        public GetRequestBuilder WithUpdateQueryParameters(Dictionary<string, string> parameters)
+        {
+            WithUpdateQueryParameters(parameters, _restRequest);
+            return this;
+        }
+
         /// <summary>Adds the parameters.</summary>
         /// <param name="parameters">The parameters.</param>
         /// <returns>
@@ -68,6 +79,20 @@ namespace Connector.APIHelper.APIRequest
             if (parameters.AnyOrNotNull())
             {
                 WithQueryParameters(parameters.ToDictionary(v => v.Key, v => v.Value));
+            }
+            return this;
+        }
+
+        /// <summary>Adds the or update parameter.</summary>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        public GetRequestBuilder AddOrUpdateParameter(List<KeyValueParameter> parameters)
+        {
+            if (parameters.AnyOrNotNull())
+            {
+                WithUpdateQueryParameters(parameters.ToDictionary(v => v.Key, v => v.Value));
             }
             return this;
         }

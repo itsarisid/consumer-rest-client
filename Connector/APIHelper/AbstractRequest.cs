@@ -43,5 +43,16 @@ namespace Connector.APIHelper
                 restRequest.AddParameter(key, parameters[key]);
             }
         }
+
+        /// <summary>Withes the update query parameters.</summary>
+        /// <param name="parameters">The parameters.</param>
+        /// <param name="restRequest">The rest request.</param>
+        protected virtual void WithUpdateQueryParameters(Dictionary<string, string> parameters, RestRequest restRequest)
+        {
+            foreach (string key in parameters.Keys)
+            {
+                restRequest.AddOrUpdateParameter(key, parameters[key]);
+            }
+        }
     }
 }

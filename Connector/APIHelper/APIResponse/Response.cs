@@ -25,7 +25,7 @@ namespace Connector.APIHelper.APIResponse
 
         /// <summary>Saves the response.</summary>
         /// <param name="path">The path.</param>
-        public override void SaveResponse(string path)
+        public override void SaveResponseInFile(string path)
         {
             File.AppendAllText(path, Environment.NewLine + _restResponse.Content);
         }
@@ -39,6 +39,8 @@ namespace Connector.APIHelper.APIResponse
     {
         private readonly RestResponse<T> _restResponse;
 
+        /// <summary>Initializes a new instance of the <see cref="Response{T}" /> class.</summary>
+        /// <param name="restResponse">The rest response.</param>
         public Response(RestResponse<T> restResponse) : base(restResponse)
         {
             _restResponse = restResponse;
@@ -52,7 +54,7 @@ namespace Connector.APIHelper.APIResponse
 
         /// <summary>Saves the response.</summary>
         /// <param name="path">The path.</param>
-        public override void SaveResponse(string path)
+        public override void SaveResponseInFile(string path)
         {
             File.AppendAllText(path, Environment.NewLine + _restResponse.Content);
         }

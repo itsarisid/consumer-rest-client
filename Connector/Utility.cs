@@ -40,6 +40,9 @@ namespace Connector
         public static void UnhandledExceptionTrapper(object sender, UnhandledExceptionEventArgs e)
         {
             Log.Logger.Error(messageTemplate: e.ExceptionObject.ToString());
+
+            //TODO: Logic for error handle.
+
         }
 
         /// <summary>Gets the name of the endpoint.</summary>

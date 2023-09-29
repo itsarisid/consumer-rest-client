@@ -10,6 +10,7 @@ using Connector.APIHelper.Interface;
 using Serilog;
 using System.Collections.Concurrent;
 using Connector.APIHelper.APIResponse;
+using System.Collections.Generic;
 
 namespace Connector
 {
@@ -34,24 +35,52 @@ namespace Connector
 
             foreach (var request in settings.Requests)
             {
-                ProcessRequest(apiExecutor, _client, request);
+                if (request.Page != null)
+                {
+                    WithPagination(apiExecutor, _client, request);
+                }
+                else
+                {
+                    ProcessRequest(apiExecutor, _client, request);
+                }
             }
 
             _client.Dispose();
         }
 
-        /// <summary>Runs the pagination.</summary>
+        /// <summary>
+        /// Runs the pagination.
+        /// </summary>
+        /// <param name="executor">The executor.</param>
+        /// <param name="client">The client.</param>
         /// <param name="request">The request.</param>
+        /// <returns></returns>
         /// <exception cref="System.ArgumentNullException">Page</exception>
-        public void RunPagination(RequestModel request)
+        public void WithPagination(RestApiExecutor executor, IClient client, RequestModel request)
         {
-            var page = request.Page;
-            if (page is null) throw new ArgumentNullException(nameof(request.Page));
+            var page = request.Page ?? throw new ArgumentNullException(nameof(request.Page));
 
-            for (int i = 0; i < page.Total; i++)
+            var parameters = new List<KeyValueParameter>
+            {
+                page.Size,
+                page.Number
+            };
+
+            for (int i = 1; i <= page.Total; i++)
             {
                 //TODO: Call with paging until reach last page.
 
+                //Update page number.
+                var newList = parameters.Where(w => w.Key != page.Number.Key).ToList();
+                newList.Add(new KeyValueParameter
+                {
+                    Key = page.Number.Key,
+                    Value = i.ToString()
+                });
+
+                request.Parameters = newList;
+
+                ProcessRequest(executor, client, request);
             }
         }
 
@@ -88,7 +117,7 @@ namespace Connector
         /// <param name="client">The client.</param>
         /// <param name="requestModel">The request model.</param>
         /// <exception cref="System.Exception">Error with status code: {statusCode}</exception>
-        private void ProcessRequest(RestApiExecutor apiExecutor, IClient client, RequestModel requestModel)
+        private AppConnector ProcessRequest(RestApiExecutor apiExecutor, IClient client, RequestModel requestModel)
         {
             // Create request
             RequestBuilder requestBuilder = new(requestModel);
@@ -113,8 +142,9 @@ namespace Connector
 
                 path = $"{path}\\{requestModel.Uri.GetEndpointName()}.json";
 
-                response.SaveResponse(path);
+                response.SaveResponseInFile(path);
             }
+            return this;
         }
     }
 }
