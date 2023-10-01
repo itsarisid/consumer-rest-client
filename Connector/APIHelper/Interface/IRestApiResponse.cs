@@ -18,6 +18,6 @@ namespace Connector.APIHelper.Interface
 
         /// <summary>Saves the response.</summary>
         /// <param name="path">The path.</param>
-        void SaveResponseInFile(string path);
+        void SaveInFile(string path);
     }
 }

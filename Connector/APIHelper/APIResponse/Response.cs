@@ -25,7 +25,7 @@ namespace Connector.APIHelper.APIResponse
 
         /// <summary>Saves the response.</summary>
         /// <param name="path">The path.</param>
-        public override void SaveResponseInFile(string path)
+        public override void SaveInFile(string path)
         {
             File.AppendAllText(path, Environment.NewLine + _restResponse.Content);
         }
@@ -54,7 +54,7 @@ namespace Connector.APIHelper.APIResponse
 
         /// <summary>Saves the response.</summary>
         /// <param name="path">The path.</param>
-        public override void SaveResponseInFile(string path)
+        public override void SaveInFile(string path)
         {
             File.AppendAllText(path, Environment.NewLine + _restResponse.Content);
         }

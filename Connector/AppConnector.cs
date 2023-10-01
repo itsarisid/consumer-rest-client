@@ -119,9 +119,9 @@ namespace Connector
         /// <exception cref="System.Exception">Error with status code: {statusCode}</exception>
         private AppConnector ProcessRequest(RestApiExecutor apiExecutor, IClient client, RequestModel requestModel)
         {
-            // Create request
             RequestBuilder requestBuilder = new(requestModel);
 
+            // Create request
             var request = requestBuilder.BuildRequest();
 
             ICommand getCommand = new RequestCommand(request, client);
@@ -133,7 +133,13 @@ namespace Connector
             var statusCode = response.GetHttpStatusCode();
 
             if (statusCode != HttpStatusCode.OK)
-                throw new Exception($"Error with status code: {statusCode}");
+            {
+                //throw new Exception($"Error with status code: {statusCode}");
+
+                Log.Logger.Error($"Error with status code: {statusCode}");
+
+                ReconnectAndContinue();
+            }
 
             if (statusCode == HttpStatusCode.OK)
             {
@@ -142,9 +148,17 @@ namespace Connector
 
                 path = $"{path}\\{requestModel.Uri.GetEndpointName()}.json";
 
-                response.SaveResponseInFile(path);
+                //Save file in JSON
+                response.SaveInFile(path);
             }
             return this;
+        }
+
+
+        /// <summary>Reconnects the and continue.</summary>
+        private void ReconnectAndContinue()
+        {
+            //TODO: Save state for future resume in case for failure
         }
     }
 }
