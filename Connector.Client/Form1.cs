@@ -1,4 +1,6 @@
 
+using Connector.Models;
+using Connector.Repositories;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
@@ -90,8 +92,8 @@ namespace Connector.Client
 
         private void btnSaveAuthDetails_Click(object sender, EventArgs e)
         {
-
-            var detail = new Models.ApiDetail
+            IRepository<ApiDetail> repository = new Repository<ApiDetail>();
+            var detail = new ApiDetail
             {
                 Name = txtName.Text,
                 AuthUrl = txtAuthUrl.Text,
@@ -101,9 +103,8 @@ namespace Connector.Client
                 CreatedDate = DateTime.Now,
             };
 
-
-            Repository repository = new Repository();
-            repository.SaveClientDetails(txtName.Text);
+            repository.Insert(detail);
+            repository.Save();
         }
     }
 }
