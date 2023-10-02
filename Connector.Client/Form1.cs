@@ -87,7 +87,7 @@ namespace Connector.Client
         private void trOutput_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             trOutput.SelectedNode = e.Node;
-            txtNextUrl.Text = e.Node.ToString();
+            txtNextUrl.Text = e.Node.Text;
         }
 
     }
