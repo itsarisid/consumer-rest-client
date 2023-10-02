@@ -73,7 +73,7 @@ namespace Connector.Client
 
         private void frmRestClient_Load(object sender, EventArgs e)
         {
-            var path = "D:\\consumer-rest-client\\Connector\\appsettings.json";
+            var path = "C:\\Users\\Sajid Khan\\source\\repos\\consumer-rest-client\\Connector\\appsettings.json";
             using (var reader = new StreamReader(path))
             using (var jsonReader = new JsonTextReader(reader))
             {
