@@ -1,9 +1,7 @@
-using Connector;
-using Connector.Models;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
-using System.IO;
 
 namespace Connector.Client
 {
@@ -90,5 +88,22 @@ namespace Connector.Client
             txtNextUrl.Text = e.Node.Text;
         }
 
+        private void btnSaveAuthDetails_Click(object sender, EventArgs e)
+        {
+
+            var detail = new Models.ApiDetail
+            {
+                Name = txtName.Text,
+                AuthUrl = txtAuthUrl.Text,
+                Method = cmbMethod.SelectedText,
+                AuthType = cmbAuthType.SelectedText,
+                Token = txtToken.Text,
+                CreatedDate = DateTime.Now,
+            };
+
+
+            Repository repository = new Repository();
+            repository.SaveClientDetails(txtName.Text);
+        }
     }
 }

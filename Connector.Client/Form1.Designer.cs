@@ -57,6 +57,7 @@
             lblParameters = new Label();
             groupBox1 = new GroupBox();
             groupBox2 = new GroupBox();
+            btnSaveAuthDetails = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -287,6 +288,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(btnSaveAuthDetails);
             groupBox1.Controls.Add(btnAuthGo);
             groupBox1.Controls.Add(lblToken);
             groupBox1.Controls.Add(lblSecret);
@@ -325,6 +327,16 @@
             groupBox2.TabIndex = 28;
             groupBox2.TabStop = false;
             groupBox2.Text = "Resource";
+            // 
+            // btnSaveAuthDetails
+            // 
+            btnSaveAuthDetails.Location = new Point(320, 202);
+            btnSaveAuthDetails.Name = "btnSaveAuthDetails";
+            btnSaveAuthDetails.Size = new Size(75, 23);
+            btnSaveAuthDetails.TabIndex = 23;
+            btnSaveAuthDetails.Text = "Save";
+            btnSaveAuthDetails.UseVisualStyleBackColor = true;
+            btnSaveAuthDetails.Click += btnSaveAuthDetails_Click;
             // 
             // frmRestClient
             // 
@@ -379,5 +391,6 @@
         private Label lblParameters;
         private GroupBox groupBox1;
         private GroupBox groupBox2;
+        private Button btnSaveAuthDetails;
     }
 }

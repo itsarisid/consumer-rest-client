@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Connector", "Connector\Conn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Connector", "Test.Connector\Test.Connector.csproj", "{5D2E8959-7366-4E0E-929E-E57E06351BC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connector.Client", "Connector.Client\Connector.Client.csproj", "{36EA5CCB-92A0-4E38-BE00-2A4F41DF385B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Connector.Client", "Connector.Client\Connector.Client.csproj", "{36EA5CCB-92A0-4E38-BE00-2A4F41DF385B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
