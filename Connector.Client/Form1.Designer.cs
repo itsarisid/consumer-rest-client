@@ -48,7 +48,7 @@
             lblResourceUrl = new Label();
             trOutput = new TreeView();
             lblResponseOutput = new Label();
-            textBox1 = new TextBox();
+            txtNextUrl = new TextBox();
             lblNextUrl = new Label();
             btnAuthGo = new Button();
             btnSave = new Button();
@@ -190,7 +190,6 @@
             lblBaseUrl.Size = new Size(55, 15);
             lblBaseUrl.TabIndex = 14;
             lblBaseUrl.Text = "Base URL";
-            lblBaseUrl.Click += lblBaseUrl_Click;
             // 
             // txtResourceUrl
             // 
@@ -214,6 +213,7 @@
             trOutput.Name = "trOutput";
             trOutput.Size = new Size(484, 306);
             trOutput.TabIndex = 18;
+            trOutput.NodeMouseClick += trOutput_NodeMouseClick;
             // 
             // lblResponseOutput
             // 
@@ -224,12 +224,12 @@
             lblResponseOutput.TabIndex = 19;
             lblResponseOutput.Text = "Response Output";
             // 
-            // textBox1
+            // txtNextUrl
             // 
-            textBox1.Location = new Point(133, 488);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(347, 23);
-            textBox1.TabIndex = 21;
+            txtNextUrl.Location = new Point(133, 488);
+            txtNextUrl.Name = "txtNextUrl";
+            txtNextUrl.Size = new Size(347, 23);
+            txtNextUrl.TabIndex = 21;
             // 
             // lblNextUrl
             // 
@@ -306,7 +306,6 @@
             groupBox1.TabIndex = 27;
             groupBox1.TabStop = false;
             groupBox1.Text = "Authentication";
-            groupBox1.Enter += groupBox1_Enter;
             // 
             // groupBox2
             // 
@@ -314,7 +313,7 @@
             groupBox2.Controls.Add(lblHeaders);
             groupBox2.Controls.Add(btnCancel);
             groupBox2.Controls.Add(btnSave);
-            groupBox2.Controls.Add(textBox1);
+            groupBox2.Controls.Add(txtNextUrl);
             groupBox2.Controls.Add(lblNextUrl);
             groupBox2.Controls.Add(txtResourceUrl);
             groupBox2.Controls.Add(lblResourceUrl);
@@ -340,6 +339,7 @@
             Controls.Add(lblName);
             Name = "frmRestClient";
             Text = "REST Client";
+            Load += frmRestClient_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
@@ -370,7 +370,7 @@
         private Label lblResourceUrl;
         private TreeView trOutput;
         private Label lblResponseOutput;
-        private TextBox textBox1;
+        private TextBox txtNextUrl;
         private Label lblNextUrl;
         private Button btnAuthGo;
         private Button btnSave;
