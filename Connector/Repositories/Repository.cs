@@ -10,12 +10,13 @@ namespace Connector.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        //The following variable is going to hold the EmployeeDBContext instance
+        /// <summary>The following variable is going to hold the EmployeeDBContext instance</summary>
         private ConnectorContext _context = null;
-        //The following Variable is going to hold the DbSet Entity
+
+        /// <summary>The following Variable is going to hold the DbSet Entity</summary>
         private DbSet<T> table = null;
-        //Using the Parameterless Constructor, 
-        //we are initializing the context object and table variable
+
+        /// <summary>Initializes a new instance of the <see cref="Repository{T}" /> class.</summary>
         public Repository()
         {
             this._context = new ConnectorContext();
@@ -23,33 +24,47 @@ namespace Connector.Repositories
             //That class name will be stored in the table variable
             table = _context.Set<T>();
         }
-        //Using the Parameterized Constructor, 
-        //we are initializing the context object and table variable
+
+        /// <summary>Initializes a new instance of the <see cref="Repository{T}" /> class.</summary>
+        /// <param name="_context">The context.</param>
         public Repository(ConnectorContext _context)
         {
             this._context = _context;
             table = _context.Set<T>();
         }
-        //This method will return all the Records from the table
+
+        /// <summary>This method will return all the Records from the table</summary>
+        /// <returns>
+        ///   <br />
+        /// </returns>
         public IEnumerable<T> GetAll()
         {
             return table.ToList();
         }
-        //This method will return the specified record from the table
-        //based on the ID which it received as an argument
+
+        /// <summary>based on the ID which it received as an argument</summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
         public T GetById(object id)
         {
             return table.Find(id);
         }
-        //This method will Insert one object into the table
-        //It will receive the object as an argument which needs to be inserted into the database
+
+        /// <summary>It will receive the object as an argument which needs to be inserted into the database</summary>
+        /// <param name="obj">The object.</param>
         public void Insert(T obj)
         {
             //It will mark the Entity state as Added State
             table.Add(obj);
         }
-        //This method is going to update the record in the table
-        //It will receive the object as an argument
+
+        /// <summary>
+        /// This method is going to update the record in the table
+        /// It will receive the object as an argument
+        /// </summary>
+        /// <param name="obj"></param>
         public void Update(T obj)
         {
             //First attach the object to the table
@@ -57,8 +72,12 @@ namespace Connector.Repositories
             //Then set the state of the Entity as Modified
             _context.Entry(obj).State = EntityState.Modified;
         }
-        //This method is going to remove the record from the table
-        //It will receive the primary key value as an argument whose information needs to be removed from the table
+
+        /// <summary>
+        /// This method is going to remove the record from the table
+        /// It will receive the primary key value as an argument whose information needs to be removed from the table
+        /// </summary>
+        /// <param name="id"></param>
         public void Delete(object id)
         {
             //First, fetch the record from the table
@@ -66,9 +85,12 @@ namespace Connector.Repositories
             //This will mark the Entity State as Deleted
             table.Remove(existing);
         }
-        //This method will make the changes permanent in the database
-        //That means once we call Insert, Update, and Delete Methods, 
-        //Then we need to call the Save method to make the changes permanent in the database
+
+        /// <summary>
+        /// This method will make the changes permanent in the database
+        /// That means once we call Insert, Update, and Delete Methods, 
+        /// Then we need to call the Save method to make the changes permanent in the database
+        /// </summary>
         public void Save()
         {
             _context.SaveChanges();

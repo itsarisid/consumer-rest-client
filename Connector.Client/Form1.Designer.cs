@@ -53,13 +53,25 @@
             btnAuthGo = new Button();
             btnSave = new Button();
             btnCancel = new Button();
-            lblHeaders = new Label();
-            lblParameters = new Label();
             groupBox1 = new GroupBox();
-            groupBox2 = new GroupBox();
             btnSaveAuthDetails = new Button();
+            groupBox2 = new GroupBox();
+            tabControl = new TabControl();
+            tabHeadersPage = new TabPage();
+            dataGridViewHeader = new DataGridView();
+            Key = new DataGridViewTextBoxColumn();
+            Value = new DataGridViewTextBoxColumn();
+            tabQueryParametersPage = new TabPage();
+            dataGridViewQueryParameters = new DataGridView();
+            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
+            tabControl.SuspendLayout();
+            tabHeadersPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewHeader).BeginInit();
+            tabQueryParametersPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewQueryParameters).BeginInit();
             SuspendLayout();
             // 
             // lblMethod
@@ -92,6 +104,7 @@
             // 
             txtName.Location = new Point(106, 19);
             txtName.Name = "txtName";
+            txtName.PlaceholderText = "Name";
             txtName.Size = new Size(394, 23);
             txtName.TabIndex = 3;
             // 
@@ -99,6 +112,7 @@
             // 
             txtAuthUrl.Location = new Point(80, 28);
             txtAuthUrl.Name = "txtAuthUrl";
+            txtAuthUrl.PlaceholderText = "Auth URL";
             txtAuthUrl.Size = new Size(395, 23);
             txtAuthUrl.TabIndex = 5;
             // 
@@ -132,6 +146,7 @@
             // 
             txtKey.Location = new Point(81, 127);
             txtKey.Name = "txtKey";
+            txtKey.PlaceholderText = "Key";
             txtKey.Size = new Size(167, 23);
             txtKey.TabIndex = 8;
             // 
@@ -139,6 +154,7 @@
             // 
             txtSecret.Location = new Point(348, 127);
             txtSecret.Name = "txtSecret";
+            txtSecret.PlaceholderText = "Secret";
             txtSecret.Size = new Size(127, 23);
             txtSecret.TabIndex = 9;
             // 
@@ -146,6 +162,7 @@
             // 
             txtToken.Location = new Point(81, 168);
             txtToken.Name = "txtToken";
+            txtToken.PlaceholderText = "Token";
             txtToken.Size = new Size(395, 23);
             txtToken.TabIndex = 10;
             // 
@@ -180,6 +197,7 @@
             // 
             txtBaseUrl.Location = new Point(134, 30);
             txtBaseUrl.Name = "txtBaseUrl";
+            txtBaseUrl.PlaceholderText = "Base URL";
             txtBaseUrl.Size = new Size(346, 23);
             txtBaseUrl.TabIndex = 15;
             // 
@@ -196,6 +214,7 @@
             // 
             txtResourceUrl.Location = new Point(134, 76);
             txtResourceUrl.Name = "txtResourceUrl";
+            txtResourceUrl.PlaceholderText = "Resource URL";
             txtResourceUrl.Size = new Size(346, 23);
             txtResourceUrl.TabIndex = 17;
             // 
@@ -229,6 +248,7 @@
             // 
             txtNextUrl.Location = new Point(133, 488);
             txtNextUrl.Name = "txtNextUrl";
+            txtNextUrl.PlaceholderText = "Next Page URL";
             txtNextUrl.Size = new Size(347, 23);
             txtNextUrl.TabIndex = 21;
             // 
@@ -268,24 +288,6 @@
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
             // 
-            // lblHeaders
-            // 
-            lblHeaders.AutoSize = true;
-            lblHeaders.Location = new Point(23, 129);
-            lblHeaders.Name = "lblHeaders";
-            lblHeaders.Size = new Size(50, 15);
-            lblHeaders.TabIndex = 25;
-            lblHeaders.Text = "Headers";
-            // 
-            // lblParameters
-            // 
-            lblParameters.AutoSize = true;
-            lblParameters.Location = new Point(18, 292);
-            lblParameters.Name = "lblParameters";
-            lblParameters.Size = new Size(66, 15);
-            lblParameters.TabIndex = 26;
-            lblParameters.Text = "Parameters";
-            // 
             // groupBox1
             // 
             groupBox1.Controls.Add(btnSaveAuthDetails);
@@ -309,10 +311,19 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Authentication";
             // 
+            // btnSaveAuthDetails
+            // 
+            btnSaveAuthDetails.Location = new Point(320, 202);
+            btnSaveAuthDetails.Name = "btnSaveAuthDetails";
+            btnSaveAuthDetails.Size = new Size(75, 23);
+            btnSaveAuthDetails.TabIndex = 23;
+            btnSaveAuthDetails.Text = "Save";
+            btnSaveAuthDetails.UseVisualStyleBackColor = true;
+            btnSaveAuthDetails.Click += btnSaveAuthDetails_Click;
+            // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(lblParameters);
-            groupBox2.Controls.Add(lblHeaders);
+            groupBox2.Controls.Add(tabControl);
             groupBox2.Controls.Add(btnCancel);
             groupBox2.Controls.Add(btnSave);
             groupBox2.Controls.Add(txtNextUrl);
@@ -328,15 +339,85 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Resource";
             // 
-            // btnSaveAuthDetails
+            // tabControl
             // 
-            btnSaveAuthDetails.Location = new Point(320, 202);
-            btnSaveAuthDetails.Name = "btnSaveAuthDetails";
-            btnSaveAuthDetails.Size = new Size(75, 23);
-            btnSaveAuthDetails.TabIndex = 23;
-            btnSaveAuthDetails.Text = "Save";
-            btnSaveAuthDetails.UseVisualStyleBackColor = true;
-            btnSaveAuthDetails.Click += btnSaveAuthDetails_Click;
+            tabControl.Controls.Add(tabHeadersPage);
+            tabControl.Controls.Add(tabQueryParametersPage);
+            tabControl.Location = new Point(18, 123);
+            tabControl.Multiline = true;
+            tabControl.Name = "tabControl";
+            tabControl.SelectedIndex = 0;
+            tabControl.Size = new Size(462, 346);
+            tabControl.SizeMode = TabSizeMode.FillToRight;
+            tabControl.TabIndex = 27;
+            // 
+            // tabHeadersPage
+            // 
+            tabHeadersPage.Controls.Add(dataGridViewHeader);
+            tabHeadersPage.Location = new Point(4, 24);
+            tabHeadersPage.Name = "tabHeadersPage";
+            tabHeadersPage.Padding = new Padding(3);
+            tabHeadersPage.Size = new Size(454, 318);
+            tabHeadersPage.TabIndex = 0;
+            tabHeadersPage.Text = "Headers";
+            tabHeadersPage.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewHeader
+            // 
+            dataGridViewHeader.AllowUserToOrderColumns = true;
+            dataGridViewHeader.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewHeader.Columns.AddRange(new DataGridViewColumn[] { Key, Value });
+            dataGridViewHeader.Location = new Point(6, 7);
+            dataGridViewHeader.Name = "dataGridViewHeader";
+            dataGridViewHeader.RowTemplate.Height = 25;
+            dataGridViewHeader.Size = new Size(440, 305);
+            dataGridViewHeader.TabIndex = 0;
+            // 
+            // Key
+            // 
+            Key.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Key.HeaderText = "Key";
+            Key.Name = "Key";
+            // 
+            // Value
+            // 
+            Value.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Value.HeaderText = "Values";
+            Value.Name = "Value";
+            // 
+            // tabQueryParametersPage
+            // 
+            tabQueryParametersPage.Controls.Add(dataGridViewQueryParameters);
+            tabQueryParametersPage.Location = new Point(4, 24);
+            tabQueryParametersPage.Name = "tabQueryParametersPage";
+            tabQueryParametersPage.Padding = new Padding(3);
+            tabQueryParametersPage.Size = new Size(454, 318);
+            tabQueryParametersPage.TabIndex = 1;
+            tabQueryParametersPage.Text = "Query Parameters";
+            tabQueryParametersPage.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewQueryParameters
+            // 
+            dataGridViewQueryParameters.AllowUserToOrderColumns = true;
+            dataGridViewQueryParameters.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewQueryParameters.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2 });
+            dataGridViewQueryParameters.Location = new Point(7, 7);
+            dataGridViewQueryParameters.Name = "dataGridViewQueryParameters";
+            dataGridViewQueryParameters.RowTemplate.Height = 25;
+            dataGridViewQueryParameters.Size = new Size(440, 305);
+            dataGridViewQueryParameters.TabIndex = 1;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            dataGridViewTextBoxColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewTextBoxColumn1.HeaderText = "Key";
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewTextBoxColumn2.HeaderText = "Values";
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
             // frmRestClient
             // 
@@ -356,6 +437,11 @@
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            tabControl.ResumeLayout(false);
+            tabHeadersPage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewHeader).EndInit();
+            tabQueryParametersPage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewQueryParameters).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -387,10 +473,17 @@
         private Button btnAuthGo;
         private Button btnSave;
         private Button btnCancel;
-        private Label lblHeaders;
-        private Label lblParameters;
         private GroupBox groupBox1;
         private GroupBox groupBox2;
         private Button btnSaveAuthDetails;
+        private TabControl tabControl;
+        private TabPage tabHeadersPage;
+        private TabPage tabQueryParametersPage;
+        private DataGridView dataGridViewHeader;
+        private DataGridViewTextBoxColumn Key;
+        private DataGridViewTextBoxColumn Value;
+        private DataGridView dataGridViewQueryParameters;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     }
 }

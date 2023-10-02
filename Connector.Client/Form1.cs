@@ -97,14 +97,17 @@ namespace Connector.Client
             {
                 Name = txtName.Text,
                 AuthUrl = txtAuthUrl.Text,
-                Method = cmbMethod.SelectedText,
-                AuthType = cmbAuthType.SelectedText,
+                Method = cmbMethod.SelectedValue.ToString(),
+                AuthType = cmbAuthType.SelectedValue.ToString(),
                 Token = txtToken.Text,
                 CreatedDate = DateTime.Now,
             };
 
+
+
             repository.Insert(detail);
             repository.Save();
         }
+
     }
 }
