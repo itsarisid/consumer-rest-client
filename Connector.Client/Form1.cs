@@ -4,7 +4,9 @@ using Connector.Repositories;
 using Connector.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace Connector.Client
 {
@@ -105,5 +107,14 @@ namespace Connector.Client
             });
         }
 
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            var headers = dataGridViewHeader.Rows.ConvertToHeader();
+            var queryParameters = dataGridViewHeader.Rows.ConvertToQueryParameters();
+
+
+
+
+        }
     }
 }

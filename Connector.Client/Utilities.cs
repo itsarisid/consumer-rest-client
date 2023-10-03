@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Connector.Models;
+using System.Windows.Forms;
+using System.Reflection;
 
 namespace Connector.Client
 {
@@ -99,5 +102,21 @@ namespace Connector.Client
                 tv.EndUpdate();
             }
         }
+
+        public static List<Header> ConvertToHeader(this DataGridViewRowCollection headers) => (from row in headers.OfType<DataGridViewRow>()
+                                                                                               where row.Cells["Key"].Value != null && row.Cells["Value"].Value != null
+                                                                                               select new Header
+                                                                                               {
+                                                                                                   Hkey = row.Cells["Key"].Value.ToString(),
+                                                                                                   Hvalue = row.Cells["Value"].Value.ToString()
+                                                                                               }).ToList();
+
+        public static List<QueryParam> ConvertToQueryParameters(this DataGridViewRowCollection parameters) => (from row in parameters.OfType<DataGridViewRow>()
+                                                                                                               where row.Cells["Key"].Value != null && row.Cells["Value"].Value != null
+                                                                                                               select new QueryParam
+                                                                                                               {
+                                                                                                                   Qkey = row.Cells["Key"].Value.ToString(),
+                                                                                                                   Qvalue = row.Cells["Value"].Value.ToString()
+                                                                                                               }).ToList();
     }
 }
