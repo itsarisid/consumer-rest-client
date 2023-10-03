@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Connector.Migrations
 {
     [DbContext(typeof(ConnectorContext))]
-    [Migration("20231002141948_Intials")]
-    partial class Intials
+    [Migration("20231003153518_request-body")]
+    partial class requestbody
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -112,6 +112,9 @@ namespace Connector.Migrations
                     b.Property<string>("BaseUrl")
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("Body")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime");

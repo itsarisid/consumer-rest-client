@@ -110,13 +110,16 @@ namespace Connector.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
+                    b.Property<string>("Body")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime");
 
                     b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("IsSuccessfull")
+                    b.Property<bool?>("IsSuccessful")
                         .HasColumnType("bit");
 
                     b.Property<string>("NextUrl")

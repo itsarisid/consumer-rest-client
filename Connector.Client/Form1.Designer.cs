@@ -136,7 +136,6 @@
             cmbAuthType.Name = "cmbAuthType";
             cmbAuthType.Size = new Size(117, 23);
             cmbAuthType.TabIndex = 7;
-            cmbAuthType.SelectedIndexChanged += cmbAuthType_SelectedIndexChanged;
             // 
             // lblAuthType
             // 
@@ -146,7 +145,6 @@
             lblAuthType.Size = new Size(60, 15);
             lblAuthType.TabIndex = 6;
             lblAuthType.Text = "Auth Type";
-            lblAuthType.Click += lblAuthType_Click;
             // 
             // txtKey
             // 
@@ -252,7 +250,7 @@
             // 
             // txtNextUrl
             // 
-            txtNextUrl.Location = new Point(133, 488);
+            txtNextUrl.Location = new Point(129, 545);
             txtNextUrl.Name = "txtNextUrl";
             txtNextUrl.PlaceholderText = "Next Page URL";
             txtNextUrl.Size = new Size(347, 23);
@@ -261,7 +259,7 @@
             // lblNextUrl
             // 
             lblNextUrl.AutoSize = true;
-            lblNextUrl.Location = new Point(18, 488);
+            lblNextUrl.Location = new Point(14, 545);
             lblNextUrl.Name = "lblNextUrl";
             lblNextUrl.Size = new Size(56, 15);
             lblNextUrl.TabIndex = 20;
@@ -269,16 +267,17 @@
             // 
             // btnAuthGo
             // 
-            btnAuthGo.Location = new Point(18, 543);
+            btnAuthGo.Location = new Point(922, 22);
             btnAuthGo.Name = "btnAuthGo";
             btnAuthGo.Size = new Size(75, 23);
             btnAuthGo.TabIndex = 22;
             btnAuthGo.Text = "Validate";
             btnAuthGo.UseVisualStyleBackColor = true;
+            btnAuthGo.Click += btnAuthGo_Click;
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(405, 543);
+            btnSave.Location = new Point(841, 22);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(75, 23);
             btnSave.TabIndex = 23;
@@ -288,7 +287,7 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(314, 543);
+            btnCancel.Location = new Point(760, 22);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(75, 23);
             btnCancel.TabIndex = 24;
@@ -325,7 +324,6 @@
             cmbContentType.Name = "cmbContentType";
             cmbContentType.Size = new Size(168, 23);
             cmbContentType.TabIndex = 15;
-            cmbContentType.SelectedIndexChanged += cmbContentType_SelectedIndexChanged;
             // 
             // lblContentType
             // 
@@ -338,10 +336,7 @@
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(btnAuthGo);
             groupBox2.Controls.Add(tabControl);
-            groupBox2.Controls.Add(btnCancel);
-            groupBox2.Controls.Add(btnSave);
             groupBox2.Controls.Add(txtNextUrl);
             groupBox2.Controls.Add(lblNextUrl);
             groupBox2.Controls.Add(txtResourceUrl);
@@ -364,7 +359,7 @@
             tabControl.Multiline = true;
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
-            tabControl.Size = new Size(462, 346);
+            tabControl.Size = new Size(462, 416);
             tabControl.SizeMode = TabSizeMode.FillToRight;
             tabControl.TabIndex = 27;
             // 
@@ -374,7 +369,7 @@
             tabHeadersPage.Location = new Point(4, 24);
             tabHeadersPage.Name = "tabHeadersPage";
             tabHeadersPage.Padding = new Padding(3);
-            tabHeadersPage.Size = new Size(454, 318);
+            tabHeadersPage.Size = new Size(454, 388);
             tabHeadersPage.TabIndex = 0;
             tabHeadersPage.Text = "Headers";
             tabHeadersPage.UseVisualStyleBackColor = true;
@@ -387,7 +382,7 @@
             dataGridViewHeader.Location = new Point(6, 7);
             dataGridViewHeader.Name = "dataGridViewHeader";
             dataGridViewHeader.RowTemplate.Height = 25;
-            dataGridViewHeader.Size = new Size(440, 305);
+            dataGridViewHeader.Size = new Size(440, 375);
             dataGridViewHeader.TabIndex = 0;
             // 
             // Key
@@ -408,7 +403,7 @@
             tabQueryParametersPage.Location = new Point(4, 24);
             tabQueryParametersPage.Name = "tabQueryParametersPage";
             tabQueryParametersPage.Padding = new Padding(3);
-            tabQueryParametersPage.Size = new Size(454, 318);
+            tabQueryParametersPage.Size = new Size(454, 388);
             tabQueryParametersPage.TabIndex = 1;
             tabQueryParametersPage.Text = "Query Parameters";
             tabQueryParametersPage.UseVisualStyleBackColor = true;
@@ -421,7 +416,7 @@
             dataGridViewQueryParameters.Location = new Point(7, 7);
             dataGridViewQueryParameters.Name = "dataGridViewQueryParameters";
             dataGridViewQueryParameters.RowTemplate.Height = 25;
-            dataGridViewQueryParameters.Size = new Size(440, 305);
+            dataGridViewQueryParameters.Size = new Size(440, 375);
             dataGridViewQueryParameters.TabIndex = 1;
             // 
             // dataGridViewTextBoxColumn1
@@ -441,7 +436,7 @@
             tabBodyPage.Controls.Add(rtxBody);
             tabBodyPage.Location = new Point(4, 24);
             tabBodyPage.Name = "tabBodyPage";
-            tabBodyPage.Size = new Size(454, 318);
+            tabBodyPage.Size = new Size(454, 388);
             tabBodyPage.TabIndex = 2;
             tabBodyPage.Text = "Body";
             tabBodyPage.UseVisualStyleBackColor = true;
@@ -450,7 +445,7 @@
             // 
             rtxBody.Location = new Point(1, 2);
             rtxBody.Name = "rtxBody";
-            rtxBody.Size = new Size(450, 313);
+            rtxBody.Size = new Size(450, 383);
             rtxBody.TabIndex = 0;
             rtxBody.Text = "";
             // 
@@ -459,6 +454,9 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1008, 641);
+            Controls.Add(btnAuthGo);
+            Controls.Add(btnSave);
+            Controls.Add(btnCancel);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(lblResponseOutput);

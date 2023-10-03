@@ -121,6 +121,7 @@ namespace Connector.Client
                 BaseUrl = txtBaseUrl.Text,
                 ResourceUrl = txtResourceUrl.Text,
                 NextUrl = txtNextUrl.Text,
+                Body = rtxBody.Text,
                 Headers = headers,
                 QueryParams = queryParameters,
                 CreatedDate = DateTime.Now,
@@ -130,16 +131,7 @@ namespace Connector.Client
             request.IsSuccessfull = true;
         }
 
-        private void lblAuthType_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cmbAuthType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void cmbContentType_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnAuthGo_Click(object sender, EventArgs e)
         {
 
         }

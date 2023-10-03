@@ -14,6 +14,7 @@ public partial class ApiRequest
     public string? ResourceUrl { get; set; }
 
     public string? NextUrl { get; set; }
+    public string? Body { get; set; }
 
     public bool? IsSuccessfull { get; set; }
 
