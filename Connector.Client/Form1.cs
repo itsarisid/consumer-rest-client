@@ -1,6 +1,7 @@
 
 using Connector.Models;
 using Connector.Repositories;
+using Connector.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
@@ -73,7 +74,7 @@ namespace Connector.Client
 
         private void frmRestClient_Load(object sender, EventArgs e)
         {
-            var path = "C:\\Users\\Sajid Khan\\source\\repos\\consumer-rest-client\\Connector\\appsettings.json";
+            var path = "D:\\consumer-rest-client\\Connector\\appsettings.json";
             using (var reader = new StreamReader(path))
             using (var jsonReader = new JsonTextReader(reader))
             {
@@ -92,8 +93,8 @@ namespace Connector.Client
 
         private void btnSaveAuthDetails_Click(object sender, EventArgs e)
         {
-            IRepository<ApiDetail> repository = new Repository<ApiDetail>();
-            var detail = new ApiDetail
+            IService<ApiDetail> service = new Service<ApiDetail>(new Repository<ApiDetail>());
+            service.AddAsync(new ApiDetail
             {
                 Name = txtName.Text,
                 AuthUrl = txtAuthUrl.Text,
@@ -101,12 +102,7 @@ namespace Connector.Client
                 AuthType = cmbAuthType.SelectedValue.ToString(),
                 Token = txtToken.Text,
                 CreatedDate = DateTime.Now,
-            };
-
-
-
-            repository.Insert(detail);
-            repository.Save();
+            });
         }
 
     }

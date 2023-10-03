@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,7 +15,7 @@ namespace Connector.Repositories
         private ConnectorContext _context = null;
 
         /// <summary>The following Variable is going to hold the DbSet Entity</summary>
-        private DbSet<T> table = null;
+        private DbSet<T> _dbSet = null;
 
         /// <summary>Initializes a new instance of the <see cref="Repository{T}" /> class.</summary>
         public Repository()
@@ -22,7 +23,7 @@ namespace Connector.Repositories
             this._context = new ConnectorContext();
             //Whatever class name we specify while creating the instance of GenericRepository
             //That class name will be stored in the table variable
-            table = _context.Set<T>();
+            _dbSet = _context.Set<T>();
         }
 
         /// <summary>Initializes a new instance of the <see cref="Repository{T}" /> class.</summary>
@@ -30,34 +31,43 @@ namespace Connector.Repositories
         public Repository(ConnectorContext _context)
         {
             this._context = _context;
-            table = _context.Set<T>();
+            _dbSet = _context.Set<T>();
         }
+
+        public virtual async Task<T> FirstAsync(Expression<Func<T, bool>> predicate) => await _dbSet.FirstAsync(predicate);
+
+        public virtual async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate) => await _dbSet.FirstOrDefaultAsync(predicate);
 
         /// <summary>This method will return all the Records from the table</summary>
         /// <returns>
         ///   <br />
         /// </returns>
-        public IEnumerable<T> GetAll()
-        {
-            return table.ToList();
-        }
+        public virtual IEnumerable<T> All => _dbSet.ToList();
 
         /// <summary>based on the ID which it received as an argument</summary>
         /// <param name="id">The identifier.</param>
         /// <returns>
         ///   <br />
         /// </returns>
-        public T GetById(object id)
+        public virtual T GetById(object id)=>_dbSet.Find(id);
+
+        public virtual IQueryable<T> GetAll() => _dbSet.AsNoTracking();
+
+        public virtual IQueryable<T> FindBy(Expression<Func<T, bool>> predicate) => _dbSet.Where(predicate);
+
+        public async Task<T> FindAsync(params object[] keys) => await _dbSet.FindAsync(keys);
+
+        public virtual async Task AddAsync(T entity)
         {
-            return table.Find(id);
+            await _dbSet.AddAsync(entity);
         }
 
         /// <summary>It will receive the object as an argument which needs to be inserted into the database</summary>
         /// <param name="obj">The object.</param>
-        public void Insert(T obj)
+        public virtual void Insert(T obj)
         {
             //It will mark the Entity state as Added State
-            table.Add(obj);
+            _dbSet.Add(obj);
         }
 
         /// <summary>
@@ -65,12 +75,25 @@ namespace Connector.Repositories
         /// It will receive the object as an argument
         /// </summary>
         /// <param name="obj"></param>
-        public void Update(T obj)
+        public virtual void Update(T obj)
         {
             //First attach the object to the table
-            table.Attach(obj);
+            _dbSet.Attach(obj);
             //Then set the state of the Entity as Modified
             _context.Entry(obj).State = EntityState.Modified;
+        }
+
+        public virtual async Task UpdateAsync(T entity)
+        {
+            //var existing = await _dbSet.FindAsync(entity.Id);
+            //if (existing != null)
+            //{
+            //    existing.ModifiedDate = DateTime.UtcNow;
+            //    _context.Entry(existing).CurrentValues.SetValues(entity);
+            //    _context.Entry(existing).Property("AddedDate").IsModified = false;
+            //}
+
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -78,22 +101,39 @@ namespace Connector.Repositories
         /// It will receive the primary key value as an argument whose information needs to be removed from the table
         /// </summary>
         /// <param name="id"></param>
-        public void Delete(object id)
+        public virtual void Delete(object id)
         {
             //First, fetch the record from the table
-            T existing = table.Find(id);
+            T existing = _dbSet.Find(id);
             //This will mark the Entity State as Deleted
-            table.Remove(existing);
+            _dbSet.Remove(existing);
         }
+
+        public virtual void Delete(params object[] keys)
+        {
+            var entity = _dbSet.Find(keys);
+            _dbSet.Remove(entity);
+        }
+
+        public virtual void Delete(T entity)
+        {
+            _dbSet.Remove(entity);
+        }
+
 
         /// <summary>
         /// This method will make the changes permanent in the database
         /// That means once we call Insert, Update, and Delete Methods, 
         /// Then we need to call the Save method to make the changes permanent in the database
         /// </summary>
-        public void Save()
+        public virtual  void Save()
         {
             _context.SaveChanges();
+        }
+
+        public virtual async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }
