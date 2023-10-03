@@ -320,7 +320,6 @@
             btnSaveAuthDetails.TabIndex = 23;
             btnSaveAuthDetails.Text = "Save";
             btnSaveAuthDetails.UseVisualStyleBackColor = true;
-            btnSaveAuthDetails.Click += btnSaveAuthDetails_Click;
             // 
             // groupBox2
             // 

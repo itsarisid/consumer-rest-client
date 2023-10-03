@@ -53,11 +53,11 @@ namespace Connector.Repositories
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        Task AddAsync(T entity);
+        Task<T> AddAsync(T entity);
 
         /// <summary>Inserts the specified object.</summary>
         /// <param name="obj">The object.</param>
-        void Insert(T obj);
+        T Insert(T obj);
 
         /// <summary>Updates the specified object.</summary>
         /// <param name="obj">The object.</param>

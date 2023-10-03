@@ -1,4 +1,5 @@
 
+using Azure.Core;
 using Connector.Models;
 using Connector.Repositories;
 using Connector.Services;
@@ -12,12 +13,15 @@ namespace Connector.Client
 {
     public partial class frmRestClient : Form
     {
+        private readonly IService<ApiDetail> apiDetailService;
+        private readonly IService<ApiRequest> apiRequestService;
         public frmRestClient()
         {
             InitializeComponent();
             cmbMethod.DataSource = Enum.GetValues(typeof(Method));
             cmbAuthType.DataSource = Enum.GetValues(typeof(AuthenticatorType));
-
+            apiDetailService = new Service<ApiDetail>(new Repository<ApiDetail>());
+            apiRequestService = new Service<ApiRequest>(new Repository<ApiRequest>());
         }
 
         private void DisplayTreeView(JToken root, string rootName)
@@ -93,10 +97,13 @@ namespace Connector.Client
             txtNextUrl.Text = e.Node.Text;
         }
 
-        private void btnSaveAuthDetails_Click(object sender, EventArgs e)
+
+        private async void btnSave_Click(object sender, EventArgs e)
         {
-            IService<ApiDetail> service = new Service<ApiDetail>(new Repository<ApiDetail>());
-            service.AddAsync(new ApiDetail
+            var headers = dataGridViewHeader.Rows.ConvertToHeader();
+            var queryParameters = dataGridViewHeader.Rows.ConvertToQueryParameters();
+
+           var details = await apiDetailService.AddAsync(new ApiDetail
             {
                 Name = txtName.Text,
                 AuthUrl = txtAuthUrl.Text,
@@ -104,17 +111,22 @@ namespace Connector.Client
                 AuthType = cmbAuthType.SelectedValue.ToString(),
                 Token = txtToken.Text,
                 CreatedDate = DateTime.Now,
+                IsActive = true,
             });
-        }
 
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            var headers = dataGridViewHeader.Rows.ConvertToHeader();
-            var queryParameters = dataGridViewHeader.Rows.ConvertToQueryParameters();
+            var request = await apiRequestService.AddAsync(new ApiRequest
+            {
+                ApiId=details.Id,
+                BaseUrl=txtBaseUrl.Text,
+                ResourceUrl=txtResourceUrl.Text,
+                NextUrl=txtNextUrl.Text,
+                Headers = headers,
+                QueryParams = queryParameters,
+                CreatedDate = DateTime.Now,
+                IsActive=true,
+            });
 
-
-
-
+            request.IsSuccessfull = true;
         }
     }
 }

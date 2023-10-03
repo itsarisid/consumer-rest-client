@@ -57,17 +57,19 @@ namespace Connector.Repositories
 
         public async Task<T> FindAsync(params object[] keys) => await _dbSet.FindAsync(keys);
 
-        public virtual async Task AddAsync(T entity)
+        public virtual async Task<T> AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
+            return entity;
         }
 
         /// <summary>It will receive the object as an argument which needs to be inserted into the database</summary>
         /// <param name="obj">The object.</param>
-        public virtual void Insert(T obj)
+        public virtual T Insert(T obj)
         {
             //It will mark the Entity state as Added State
             _dbSet.Add(obj);
+            return obj;
         }
 
         /// <summary>

@@ -19,7 +19,7 @@ namespace Connector.Services
 
         Task<T> FindAsync(params object[] keys);
 
-        Task AddAsync(T entity);
+        Task<T> AddAsync(T entity);
 
         Task DeleteAsync(T entity);
 

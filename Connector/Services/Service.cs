@@ -20,10 +20,11 @@ namespace Connector.Services
 
         public async Task<T> FindAsync(params object[] keys) => await _repository.FindAsync(keys); 
 
-        public virtual async Task AddAsync(T entity)
+        public virtual async Task<T> AddAsync(T entity)
         {
             await _repository.AddAsync(entity);
             await _repository.SaveAsync();
+            return entity;
         }
 
         public virtual async Task DeleteAsync(T entity)
