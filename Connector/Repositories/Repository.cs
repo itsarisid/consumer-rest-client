@@ -109,17 +109,40 @@ namespace Connector.Repositories
             _dbSet.Remove(existing);
         }
 
+        /// <summary>
+        /// The Delete method deletes an entity by its identifier.
+        /// </summary>
+        /// <param name="keys"></param>
         public virtual void Delete(params object[] keys)
         {
             var entity = _dbSet.Find(keys);
             _dbSet.Remove(entity);
         }
 
+        /// <summary>
+        /// The Delete method deletes an entity.
+        /// </summary>
+        /// <param name="entity"></param>
         public virtual void Delete(T entity)
         {
             _dbSet.Remove(entity);
         }
 
+        /// <summary>
+        /// The Delete method deletes an entity by its identifier.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<bool> Delete(int id)
+        {
+            var entity = _dbSet.Find(id);
+            if (entity == null) return false;
+
+            _context.Remove(entity);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
 
         /// <summary>
         /// This method will make the changes permanent in the database
@@ -131,9 +154,15 @@ namespace Connector.Repositories
             _context.SaveChanges();
         }
 
+        /// <summary>
+        /// This method will make the changes permanent in the database
+        /// That means once we call Insert, Update, and Delete Methods, 
+        /// Then we need to call the Save method to make the changes permanent in the database
+        /// </summary>
         public virtual async Task SaveAsync()
         {
             await _context.SaveChangesAsync();
         }
+        
     }
 }

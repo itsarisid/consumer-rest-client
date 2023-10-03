@@ -85,6 +85,11 @@ namespace Connector.Repositories
         /// <param name="keys">entity keys</param>
         void Delete(params object[] keys);
 
+        /// <summary>
+        /// Remove entity from database
+        /// </summary>
+        Task<bool> Delete(int id);
+
         /// <summary>Saves this instance.</summary>
         void Save();
 
