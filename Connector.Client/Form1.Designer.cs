@@ -54,6 +54,8 @@
             btnSave = new Button();
             btnCancel = new Button();
             groupBox1 = new GroupBox();
+            cmbContentType = new ComboBox();
+            lblContentType = new Label();
             groupBox2 = new GroupBox();
             tabControl = new TabControl();
             tabHeadersPage = new TabPage();
@@ -64,8 +66,8 @@
             dataGridViewQueryParameters = new DataGridView();
             dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
-            cmbContentType = new ComboBox();
-            lblContentType = new Label();
+            tabBodyPage = new TabPage();
+            rtxBody = new RichTextBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             tabControl.SuspendLayout();
@@ -73,6 +75,7 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewHeader).BeginInit();
             tabQueryParametersPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewQueryParameters).BeginInit();
+            tabBodyPage.SuspendLayout();
             SuspendLayout();
             // 
             // lblMethod
@@ -129,9 +132,9 @@
             // cmbAuthType
             // 
             cmbAuthType.FormattingEnabled = true;
-            cmbAuthType.Location = new Point(83, 124);
+            cmbAuthType.Location = new Point(80, 124);
             cmbAuthType.Name = "cmbAuthType";
-            cmbAuthType.Size = new Size(114, 23);
+            cmbAuthType.Size = new Size(117, 23);
             cmbAuthType.TabIndex = 7;
             cmbAuthType.SelectedIndexChanged += cmbAuthType_SelectedIndexChanged;
             // 
@@ -147,7 +150,7 @@
             // 
             // txtKey
             // 
-            txtKey.Location = new Point(83, 175);
+            txtKey.Location = new Point(80, 175);
             txtKey.Name = "txtKey";
             txtKey.PlaceholderText = "Key";
             txtKey.Size = new Size(167, 23);
@@ -155,7 +158,7 @@
             // 
             // txtSecret
             // 
-            txtSecret.Location = new Point(350, 175);
+            txtSecret.Location = new Point(348, 175);
             txtSecret.Name = "txtSecret";
             txtSecret.PlaceholderText = "Secret";
             txtSecret.Size = new Size(127, 23);
@@ -163,7 +166,7 @@
             // 
             // txtToken
             // 
-            txtToken.Location = new Point(83, 216);
+            txtToken.Location = new Point(80, 216);
             txtToken.Name = "txtToken";
             txtToken.PlaceholderText = "Token";
             txtToken.Size = new Size(395, 23);
@@ -315,6 +318,24 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Authentication";
             // 
+            // cmbContentType
+            // 
+            cmbContentType.FormattingEnabled = true;
+            cmbContentType.Location = new Point(307, 77);
+            cmbContentType.Name = "cmbContentType";
+            cmbContentType.Size = new Size(168, 23);
+            cmbContentType.TabIndex = 15;
+            cmbContentType.SelectedIndexChanged += cmbContentType_SelectedIndexChanged;
+            // 
+            // lblContentType
+            // 
+            lblContentType.AutoSize = true;
+            lblContentType.Location = new Point(208, 80);
+            lblContentType.Name = "lblContentType";
+            lblContentType.Size = new Size(79, 15);
+            lblContentType.TabIndex = 14;
+            lblContentType.Text = "Content-Type";
+            // 
             // groupBox2
             // 
             groupBox2.Controls.Add(btnAuthGo);
@@ -338,6 +359,7 @@
             // 
             tabControl.Controls.Add(tabHeadersPage);
             tabControl.Controls.Add(tabQueryParametersPage);
+            tabControl.Controls.Add(tabBodyPage);
             tabControl.Location = new Point(18, 123);
             tabControl.Multiline = true;
             tabControl.Name = "tabControl";
@@ -414,23 +436,23 @@
             dataGridViewTextBoxColumn2.HeaderText = "Values";
             dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
-            // cmbContentType
+            // tabBodyPage
             // 
-            cmbContentType.FormattingEnabled = true;
-            cmbContentType.Location = new Point(307, 80);
-            cmbContentType.Name = "cmbContentType";
-            cmbContentType.Size = new Size(168, 23);
-            cmbContentType.TabIndex = 15;
-            cmbContentType.SelectedIndexChanged += cmbContentType_SelectedIndexChanged;
+            tabBodyPage.Controls.Add(rtxBody);
+            tabBodyPage.Location = new Point(4, 24);
+            tabBodyPage.Name = "tabBodyPage";
+            tabBodyPage.Size = new Size(454, 318);
+            tabBodyPage.TabIndex = 2;
+            tabBodyPage.Text = "Body";
+            tabBodyPage.UseVisualStyleBackColor = true;
             // 
-            // lblContentType
+            // rtxBody
             // 
-            lblContentType.AutoSize = true;
-            lblContentType.Location = new Point(208, 80);
-            lblContentType.Name = "lblContentType";
-            lblContentType.Size = new Size(79, 15);
-            lblContentType.TabIndex = 14;
-            lblContentType.Text = "Content-Type";
+            rtxBody.Location = new Point(1, 2);
+            rtxBody.Name = "rtxBody";
+            rtxBody.Size = new Size(450, 313);
+            rtxBody.TabIndex = 0;
+            rtxBody.Text = "";
             // 
             // frmRestClient
             // 
@@ -455,6 +477,7 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewHeader).EndInit();
             tabQueryParametersPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridViewQueryParameters).EndInit();
+            tabBodyPage.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -499,5 +522,7 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private ComboBox cmbContentType;
         private Label lblContentType;
+        private TabPage tabBodyPage;
+        private RichTextBox rtxBody;
     }
 }

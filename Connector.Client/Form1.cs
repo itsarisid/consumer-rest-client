@@ -81,13 +81,13 @@ namespace Connector.Client
 
         private void frmRestClient_Load(object sender, EventArgs e)
         {
-            var path = "D:\\consumer-rest-client\\Connector\\appsettings.json";
-            using (var reader = new StreamReader(path))
-            using (var jsonReader = new JsonTextReader(reader))
-            {
-                var root = JToken.Load(jsonReader);
-                DisplayTreeView(root, Path.GetFileNameWithoutExtension(path));
-            }
+            //var path = "D:\\consumer-rest-client\\Connector\\appsettings.json";
+            //using (var reader = new StreamReader(path))
+            //using (var jsonReader = new JsonTextReader(reader))
+            //{
+            //    var root = JToken.Load(jsonReader);
+            //    DisplayTreeView(root, Path.GetFileNameWithoutExtension(path));
+            //}
 
             //trOutput.SetObjectAsJson(new AppSettings());
         }
