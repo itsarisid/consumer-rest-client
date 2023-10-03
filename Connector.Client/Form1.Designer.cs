@@ -54,7 +54,6 @@
             btnSave = new Button();
             btnCancel = new Button();
             groupBox1 = new GroupBox();
-            btnSaveAuthDetails = new Button();
             groupBox2 = new GroupBox();
             tabControl = new TabControl();
             tabHeadersPage = new TabPage();
@@ -65,6 +64,8 @@
             dataGridViewQueryParameters = new DataGridView();
             dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+            cmbContentType = new ComboBox();
+            lblContentType = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             tabControl.SuspendLayout();
@@ -88,7 +89,7 @@
             cmbMethod.FormattingEnabled = true;
             cmbMethod.Location = new Point(80, 77);
             cmbMethod.Name = "cmbMethod";
-            cmbMethod.Size = new Size(168, 23);
+            cmbMethod.Size = new Size(117, 23);
             cmbMethod.TabIndex = 1;
             // 
             // lblName
@@ -128,23 +129,25 @@
             // cmbAuthType
             // 
             cmbAuthType.FormattingEnabled = true;
-            cmbAuthType.Location = new Point(348, 77);
+            cmbAuthType.Location = new Point(83, 124);
             cmbAuthType.Name = "cmbAuthType";
-            cmbAuthType.Size = new Size(127, 23);
+            cmbAuthType.Size = new Size(114, 23);
             cmbAuthType.TabIndex = 7;
+            cmbAuthType.SelectedIndexChanged += cmbAuthType_SelectedIndexChanged;
             // 
             // lblAuthType
             // 
             lblAuthType.AutoSize = true;
-            lblAuthType.Location = new Point(275, 80);
+            lblAuthType.Location = new Point(10, 127);
             lblAuthType.Name = "lblAuthType";
             lblAuthType.Size = new Size(60, 15);
             lblAuthType.TabIndex = 6;
             lblAuthType.Text = "Auth Type";
+            lblAuthType.Click += lblAuthType_Click;
             // 
             // txtKey
             // 
-            txtKey.Location = new Point(81, 127);
+            txtKey.Location = new Point(83, 175);
             txtKey.Name = "txtKey";
             txtKey.PlaceholderText = "Key";
             txtKey.Size = new Size(167, 23);
@@ -152,7 +155,7 @@
             // 
             // txtSecret
             // 
-            txtSecret.Location = new Point(348, 127);
+            txtSecret.Location = new Point(350, 175);
             txtSecret.Name = "txtSecret";
             txtSecret.PlaceholderText = "Secret";
             txtSecret.Size = new Size(127, 23);
@@ -160,7 +163,7 @@
             // 
             // txtToken
             // 
-            txtToken.Location = new Point(81, 168);
+            txtToken.Location = new Point(83, 216);
             txtToken.Name = "txtToken";
             txtToken.PlaceholderText = "Token";
             txtToken.Size = new Size(395, 23);
@@ -169,7 +172,7 @@
             // lblKey
             // 
             lblKey.AutoSize = true;
-            lblKey.Location = new Point(6, 130);
+            lblKey.Location = new Point(8, 178);
             lblKey.Name = "lblKey";
             lblKey.Size = new Size(26, 15);
             lblKey.TabIndex = 11;
@@ -178,7 +181,7 @@
             // lblSecret
             // 
             lblSecret.AutoSize = true;
-            lblSecret.Location = new Point(275, 130);
+            lblSecret.Location = new Point(277, 178);
             lblSecret.Name = "lblSecret";
             lblSecret.Size = new Size(39, 15);
             lblSecret.TabIndex = 12;
@@ -187,7 +190,7 @@
             // lblToken
             // 
             lblToken.AutoSize = true;
-            lblToken.Location = new Point(3, 171);
+            lblToken.Location = new Point(5, 219);
             lblToken.Name = "lblToken";
             lblToken.Size = new Size(38, 15);
             lblToken.TabIndex = 13;
@@ -263,7 +266,7 @@
             // 
             // btnAuthGo
             // 
-            btnAuthGo.Location = new Point(401, 202);
+            btnAuthGo.Location = new Point(18, 543);
             btnAuthGo.Name = "btnAuthGo";
             btnAuthGo.Size = new Size(75, 23);
             btnAuthGo.TabIndex = 22;
@@ -282,7 +285,7 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(307, 543);
+            btnCancel.Location = new Point(314, 543);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(75, 23);
             btnCancel.TabIndex = 24;
@@ -291,8 +294,8 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(btnSaveAuthDetails);
-            groupBox1.Controls.Add(btnAuthGo);
+            groupBox1.Controls.Add(cmbContentType);
+            groupBox1.Controls.Add(lblContentType);
             groupBox1.Controls.Add(lblToken);
             groupBox1.Controls.Add(lblSecret);
             groupBox1.Controls.Add(lblKey);
@@ -307,22 +310,14 @@
             groupBox1.Controls.Add(lblMethod);
             groupBox1.Location = new Point(25, 43);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(484, 243);
+            groupBox1.Size = new Size(484, 259);
             groupBox1.TabIndex = 27;
             groupBox1.TabStop = false;
             groupBox1.Text = "Authentication";
             // 
-            // btnSaveAuthDetails
-            // 
-            btnSaveAuthDetails.Location = new Point(320, 202);
-            btnSaveAuthDetails.Name = "btnSaveAuthDetails";
-            btnSaveAuthDetails.Size = new Size(75, 23);
-            btnSaveAuthDetails.TabIndex = 23;
-            btnSaveAuthDetails.Text = "Save";
-            btnSaveAuthDetails.UseVisualStyleBackColor = true;
-            // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(btnAuthGo);
             groupBox2.Controls.Add(tabControl);
             groupBox2.Controls.Add(btnCancel);
             groupBox2.Controls.Add(btnSave);
@@ -419,6 +414,24 @@
             dataGridViewTextBoxColumn2.HeaderText = "Values";
             dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
+            // cmbContentType
+            // 
+            cmbContentType.FormattingEnabled = true;
+            cmbContentType.Location = new Point(307, 80);
+            cmbContentType.Name = "cmbContentType";
+            cmbContentType.Size = new Size(168, 23);
+            cmbContentType.TabIndex = 15;
+            cmbContentType.SelectedIndexChanged += cmbContentType_SelectedIndexChanged;
+            // 
+            // lblContentType
+            // 
+            lblContentType.AutoSize = true;
+            lblContentType.Location = new Point(208, 80);
+            lblContentType.Name = "lblContentType";
+            lblContentType.Size = new Size(79, 15);
+            lblContentType.TabIndex = 14;
+            lblContentType.Text = "Content-Type";
+            // 
             // frmRestClient
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -475,7 +488,6 @@
         private Button btnCancel;
         private GroupBox groupBox1;
         private GroupBox groupBox2;
-        private Button btnSaveAuthDetails;
         private TabControl tabControl;
         private TabPage tabHeadersPage;
         private TabPage tabQueryParametersPage;
@@ -485,5 +497,7 @@
         private DataGridView dataGridViewQueryParameters;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private ComboBox cmbContentType;
+        private Label lblContentType;
     }
 }

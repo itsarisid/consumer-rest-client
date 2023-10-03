@@ -20,6 +20,7 @@ namespace Connector.Client
             InitializeComponent();
             cmbMethod.DataSource = Enum.GetValues(typeof(Method));
             cmbAuthType.DataSource = Enum.GetValues(typeof(AuthenticatorType));
+            //cmbContentType.DataSource = Enum.GetValues(typeof(ContentType));
             apiDetailService = new Service<ApiDetail>(new Repository<ApiDetail>());
             apiRequestService = new Service<ApiRequest>(new Repository<ApiRequest>());
         }
@@ -103,7 +104,7 @@ namespace Connector.Client
             var headers = dataGridViewHeader.Rows.ConvertToHeader();
             var queryParameters = dataGridViewHeader.Rows.ConvertToQueryParameters();
 
-           var details = await apiDetailService.AddAsync(new ApiDetail
+            var details = await apiDetailService.AddAsync(new ApiDetail
             {
                 Name = txtName.Text,
                 AuthUrl = txtAuthUrl.Text,
@@ -116,17 +117,31 @@ namespace Connector.Client
 
             var request = await apiRequestService.AddAsync(new ApiRequest
             {
-                ApiId=details.Id,
-                BaseUrl=txtBaseUrl.Text,
-                ResourceUrl=txtResourceUrl.Text,
-                NextUrl=txtNextUrl.Text,
+                ApiId = details.Id,
+                BaseUrl = txtBaseUrl.Text,
+                ResourceUrl = txtResourceUrl.Text,
+                NextUrl = txtNextUrl.Text,
                 Headers = headers,
                 QueryParams = queryParameters,
                 CreatedDate = DateTime.Now,
-                IsActive=true,
+                IsActive = true,
             });
 
             request.IsSuccessfull = true;
+        }
+
+        private void lblAuthType_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbAuthType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void cmbContentType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
