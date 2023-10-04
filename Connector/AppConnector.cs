@@ -154,7 +154,6 @@ namespace Connector
             return this;
         }
 
-
         /// <summary>Reconnects the and continue.</summary>
         private void ReconnectAndContinue()
         {

@@ -102,7 +102,7 @@ namespace Connector.Client
         private async void btnSave_Click(object sender, EventArgs e)
         {
             var headers = dataGridViewHeader.Rows.ConvertToHeader();
-            var queryParameters = dataGridViewHeader.Rows.ConvertToQueryParameters();
+            var queryParameters = dataGridViewQueryParameters.Rows.ConvertToQueryParameters();
 
             var details = await apiDetailService.AddAsync(new ApiDetail
             {
@@ -131,6 +131,7 @@ namespace Connector.Client
 
         private void btnAuthGo_Click(object sender, EventArgs e)
         {
+
 
         }
     }

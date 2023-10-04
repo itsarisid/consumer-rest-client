@@ -108,7 +108,8 @@ namespace Connector.Client
                                                                                                select new Header
                                                                                                {
                                                                                                    Key = row.Cells["Key"].Value.ToString(),
-                                                                                                   Value = row.Cells["Value"].Value.ToString()
+                                                                                                   Value = row.Cells["Value"].Value.ToString(),
+                                                                                                   IsActive = true
                                                                                                }).ToList();
 
         public static List<QueryParameter> ConvertToQueryParameters(this DataGridViewRowCollection parameters) => (from row in parameters.OfType<DataGridViewRow>()
@@ -116,7 +117,8 @@ namespace Connector.Client
                                                                                                                select new QueryParameter
                                                                                                                {
                                                                                                                    Key = row.Cells["Key"].Value.ToString(),
-                                                                                                                   Value = row.Cells["Value"].Value.ToString()
+                                                                                                                   Value = row.Cells["Value"].Value.ToString(),
+                                                                                                                   IsActive = true
                                                                                                                }).ToList();
     }
 }
