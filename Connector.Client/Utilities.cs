@@ -107,16 +107,16 @@ namespace Connector.Client
                                                                                                where row.Cells["Key"].Value != null && row.Cells["Value"].Value != null
                                                                                                select new Header
                                                                                                {
-                                                                                                   Hkey = row.Cells["Key"].Value.ToString(),
-                                                                                                   Hvalue = row.Cells["Value"].Value.ToString()
+                                                                                                   Key = row.Cells["Key"].Value.ToString(),
+                                                                                                   Value = row.Cells["Value"].Value.ToString()
                                                                                                }).ToList();
 
-        public static List<QueryParam> ConvertToQueryParameters(this DataGridViewRowCollection parameters) => (from row in parameters.OfType<DataGridViewRow>()
+        public static List<QueryParameter> ConvertToQueryParameters(this DataGridViewRowCollection parameters) => (from row in parameters.OfType<DataGridViewRow>()
                                                                                                                where row.Cells["Key"].Value != null && row.Cells["Value"].Value != null
-                                                                                                               select new QueryParam
+                                                                                                               select new QueryParameter
                                                                                                                {
-                                                                                                                   Qkey = row.Cells["Key"].Value.ToString(),
-                                                                                                                   Qvalue = row.Cells["Value"].Value.ToString()
+                                                                                                                   Key = row.Cells["Key"].Value.ToString(),
+                                                                                                                   Value = row.Cells["Value"].Value.ToString()
                                                                                                                }).ToList();
     }
 }

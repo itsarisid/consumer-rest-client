@@ -9,9 +9,9 @@ public partial class Header
 
     public int? ReqId { get; set; }
 
-    public string? Hkey { get; set; }
+    public string? Key { get; set; }
 
-    public string? Hvalue { get; set; }
+    public string? Value { get; set; }
 
     public bool? IsActive { get; set; }
 

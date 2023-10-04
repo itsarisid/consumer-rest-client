@@ -123,12 +123,10 @@ namespace Connector.Client
                 NextUrl = txtNextUrl.Text,
                 Body = rtxBody.Text,
                 Headers = headers,
-                QueryParams = queryParameters,
+                QueryParameters = queryParameters,
                 CreatedDate = DateTime.Now,
                 IsActive = true,
             });
-
-            request.IsSuccessfull = true;
         }
 
         private void btnAuthGo_Click(object sender, EventArgs e)

@@ -1,0 +1,2 @@
+
+{"data":{"type":"list","id":"UguctV","attributes":{"name":"Master List Opted In","created":"2021-11-23T00:29:49+00:00","updated":"2022-05-23T11:16:30+00:00"},"relationships":{"profiles":{"links":{"self":"https://a.klaviyo.com/api/lists/UguctV/relationships/profiles/","related":"https://a.klaviyo.com/api/lists/UguctV/profiles/"}},"tags":{"links":{"self":"https://a.klaviyo.com/api/lists/UguctV/relationships/tags/","related":"https://a.klaviyo.com/api/lists/UguctV/tags/"}}},"links":{"self":"https://a.klaviyo.com/api/lists/UguctV/"}}}

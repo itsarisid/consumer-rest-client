@@ -68,6 +68,7 @@
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             tabBodyPage = new TabPage();
             rtxBody = new RichTextBox();
+            btnRun = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             tabControl.SuspendLayout();
@@ -449,11 +450,21 @@
             rtxBody.TabIndex = 0;
             rtxBody.Text = "";
             // 
+            // btnRun
+            // 
+            btnRun.Location = new Point(679, 22);
+            btnRun.Name = "btnRun";
+            btnRun.Size = new Size(75, 23);
+            btnRun.TabIndex = 29;
+            btnRun.Text = "Run";
+            btnRun.UseVisualStyleBackColor = true;
+            // 
             // frmRestClient
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1008, 641);
+            Controls.Add(btnRun);
             Controls.Add(btnAuthGo);
             Controls.Add(btnSave);
             Controls.Add(btnCancel);
@@ -522,5 +533,6 @@
         private Label lblContentType;
         private TabPage tabBodyPage;
         private RichTextBox rtxBody;
+        private Button btnRun;
     }
 }

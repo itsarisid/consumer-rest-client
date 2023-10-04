@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace Connector.Models;
 
-public partial class QueryParam
+public partial class QueryParameter
 {
     public int Id { get; set; }
 
     public int? ReqId { get; set; }
 
-    public string? Qkey { get; set; }
+    public string? Key { get; set; }
 
-    public string? Qvalue { get; set; }
+    public string? Value { get; set; }
 
     public bool? IsActive { get; set; }
 

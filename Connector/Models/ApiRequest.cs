@@ -14,9 +14,12 @@ public partial class ApiRequest
     public string? ResourceUrl { get; set; }
 
     public string? NextUrl { get; set; }
+
+    public string? ContentType { get; set; }
+
     public string? Body { get; set; }
 
-    public bool? IsSuccessfull { get; set; }
+    public bool? IsSuccessful { get; set; }
 
     public bool? IsActive { get; set; }
 
@@ -26,5 +29,5 @@ public partial class ApiRequest
 
     public virtual ICollection<Header> Headers { get; set; } = new List<Header>();
 
-    public virtual ICollection<QueryParam> QueryParams { get; set; } = new List<QueryParam>();
+    public virtual ICollection<QueryParameter> QueryParameters { get; set; } = new List<QueryParameter>();
 }

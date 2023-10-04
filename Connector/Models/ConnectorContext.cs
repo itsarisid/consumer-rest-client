@@ -21,11 +21,11 @@ public partial class ConnectorContext : DbContext
 
     public virtual DbSet<Header> Headers { get; set; }
 
-    public virtual DbSet<QueryParam> QueryParams { get; set; }
+    public virtual DbSet<QueryParameter> QueryParameters { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=ARISID;Database=Connector;Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=localhost;Database=Connector;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -33,24 +33,24 @@ public partial class ConnectorContext : DbContext
         {
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Apikey)
-                .HasMaxLength(100)
+                .HasMaxLength(350)
                 .HasColumnName("APIKey");
             entity.Property(e => e.AuthType).HasMaxLength(10);
-            entity.Property(e => e.AuthUrl).HasMaxLength(150);
-            entity.Property(e => e.ConsumerKey).HasMaxLength(100);
-            entity.Property(e => e.ConsumerSecret).HasMaxLength(100);
+            entity.Property(e => e.AuthUrl).HasMaxLength(350);
+            entity.Property(e => e.ConsumerKey).HasMaxLength(350);
+            entity.Property(e => e.ConsumerSecret).HasMaxLength(350);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.Method).HasMaxLength(10);
             entity.Property(e => e.Name).HasMaxLength(50);
             entity.Property(e => e.OauthToken)
-                .HasMaxLength(100)
+                .HasMaxLength(350)
                 .HasColumnName("OAuthToken");
             entity.Property(e => e.OauthTokenSecret)
-                .HasMaxLength(100)
+                .HasMaxLength(350)
                 .HasColumnName("OAuthTokenSecret");
-            entity.Property(e => e.Password).HasMaxLength(100);
-            entity.Property(e => e.Token).HasMaxLength(250);
-            entity.Property(e => e.UserName).HasMaxLength(100);
+            entity.Property(e => e.Password).HasMaxLength(350);
+            entity.Property(e => e.Token).HasMaxLength(350);
+            entity.Property(e => e.UserName).HasMaxLength(350);
         });
 
         modelBuilder.Entity<ApiRequest>(entity =>
@@ -59,10 +59,11 @@ public partial class ConnectorContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.ApiId).HasColumnName("ApiID");
-            entity.Property(e => e.BaseUrl).HasMaxLength(250);
+            entity.Property(e => e.BaseUrl).HasMaxLength(350);
+            entity.Property(e => e.ContentType).HasMaxLength(350);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
-            entity.Property(e => e.NextUrl).HasMaxLength(250);
-            entity.Property(e => e.ResourceUrl).HasMaxLength(250);
+            entity.Property(e => e.NextUrl).HasMaxLength(350);
+            entity.Property(e => e.ResourceUrl).HasMaxLength(350);
 
             entity.HasOne(d => d.Api).WithMany(p => p.ApiRequests)
                 .HasForeignKey(d => d.ApiId)
@@ -74,31 +75,25 @@ public partial class ConnectorContext : DbContext
             entity.ToTable("Header");
 
             entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.Hkey)
-                .HasMaxLength(50)
-                .HasColumnName("HKey");
-            entity.Property(e => e.Hvalue)
-                .HasMaxLength(50)
-                .HasColumnName("HValue");
+            entity.Property(e => e.Key).HasMaxLength(350);
             entity.Property(e => e.ReqId).HasColumnName("ReqID");
+            entity.Property(e => e.Value).HasMaxLength(350);
 
             entity.HasOne(d => d.Req).WithMany(p => p.Headers)
                 .HasForeignKey(d => d.ReqId)
                 .HasConstraintName("FK_Header_ApiRequest");
         });
 
-        modelBuilder.Entity<QueryParam>(entity =>
+        modelBuilder.Entity<QueryParameter>(entity =>
         {
-            entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.Qkey)
-                .HasMaxLength(50)
-                .HasColumnName("QKey");
-            entity.Property(e => e.Qvalue)
-                .HasMaxLength(50)
-                .HasColumnName("QValue");
-            entity.Property(e => e.ReqId).HasColumnName("ReqID");
+            entity.HasKey(e => e.Id).HasName("PK_QueryParams");
 
-            entity.HasOne(d => d.Req).WithMany(p => p.QueryParams)
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Key).HasMaxLength(350);
+            entity.Property(e => e.ReqId).HasColumnName("ReqID");
+            entity.Property(e => e.Value).HasMaxLength(350);
+
+            entity.HasOne(d => d.Req).WithMany(p => p.QueryParameters)
                 .HasForeignKey(d => d.ReqId)
                 .HasConstraintName("FK_QueryParams_ApiRequest");
         });
