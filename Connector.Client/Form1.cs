@@ -133,7 +133,15 @@ namespace Connector.Client
         {
             var executer = new RequestExecuter();
 
-            executer.Initialize().Run();
+            var data = executer.Initialize().Run();
+
+            using (var reader = new StreamReader(data))
+            using (var jsonReader = new JsonTextReader(reader))
+            {
+                var root = JToken.Load(jsonReader);
+                DisplayTreeView(root, "root");
+            }
+
 
         }
     }

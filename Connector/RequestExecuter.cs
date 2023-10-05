@@ -27,6 +27,8 @@ namespace Connector
         private readonly IService<Header> apiHeaderService;
         private readonly IService<Models.QueryParameter> apiQueryService;
 
+        private StringBuilder data;
+
         private AppSettings settings;
 
 
@@ -51,8 +53,8 @@ namespace Connector
                 throw new NullReferenceException(nameof(request));
             }
 
-            var header = apiHeaderService.FindBy(x => x.ReqId==request.Id).ToList();
-            var parameters = apiQueryService.FindBy(x => x.ReqId==request.Id).ToList();
+            var header = apiHeaderService.FindBy(x => x.ReqId == request.Id).ToList();
+            var parameters = apiQueryService.FindBy(x => x.ReqId == request.Id).ToList();
 
             settings = new AppSettings
             {
@@ -88,7 +90,7 @@ namespace Connector
             return this;
         }
 
-        public void Run()
+        public string Run()
         {
             if (string.IsNullOrEmpty(settings?.BaseUrl)) throw new ArgumentNullException(nameof(settings.BaseUrl));
 
@@ -106,7 +108,7 @@ namespace Connector
             {
                 if (request.Page != null)
                 {
-                   // WithPagination(apiExecutor, _client, request);
+                    // WithPagination(apiExecutor, _client, request);
                 }
                 else
                 {
@@ -115,6 +117,8 @@ namespace Connector
             }
 
             _client.Dispose();
+
+            return data.ToString();
         }
 
         private RequestExecuter ExcuteRequest(RestApiExecutor apiExecutor, IClient client, RequestModel requestModel)
@@ -144,12 +148,9 @@ namespace Connector
             if (statusCode == HttpStatusCode.OK)
             {
                 Log.Logger.Information("Status OK");
-                var path = string.IsNullOrEmpty(settings?.OutputDirectory) ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : settings.OutputDirectory;
 
-                path = $"{path}\\{requestModel.Uri.GetEndpointName()}.json";
-
-                //Save file in JSON
-                response.SaveInFile(path);
+                string _data = response.GetResponseData();
+                data.AppendLine(_data);
             }
             return this;
         }
