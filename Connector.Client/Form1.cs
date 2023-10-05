@@ -131,7 +131,9 @@ namespace Connector.Client
 
         private void btnAuthGo_Click(object sender, EventArgs e)
         {
+            var executer = new RequestExecuter();
 
+            executer.Initialize().Run();
 
         }
     }

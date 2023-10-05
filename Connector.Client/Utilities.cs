@@ -104,7 +104,7 @@ namespace Connector.Client
         }
 
         public static List<Header> ConvertToHeader(this DataGridViewRowCollection headers) => (from row in headers.OfType<DataGridViewRow>()
-                                                                                               where row.Cells["Key"].Value != null && row.Cells["Value"].Value != null
+                                                                                               where row.Cells["Key"]?.Value != null && row.Cells["Value"]?.Value != null
                                                                                                select new Header
                                                                                                {
                                                                                                    Key = row.Cells["Key"].Value.ToString(),
@@ -113,11 +113,11 @@ namespace Connector.Client
                                                                                                }).ToList();
 
         public static List<QueryParameter> ConvertToQueryParameters(this DataGridViewRowCollection parameters) => (from row in parameters.OfType<DataGridViewRow>()
-                                                                                                               where row.Cells["Key"].Value != null && row.Cells["Value"].Value != null
+                                                                                                               where row.Cells["QKey"]?.Value != null && row.Cells["QValue"]?.Value != null
                                                                                                                select new QueryParameter
                                                                                                                {
-                                                                                                                   Key = row.Cells["Key"].Value.ToString(),
-                                                                                                                   Value = row.Cells["Value"].Value.ToString(),
+                                                                                                                   Key = row.Cells["QKey"].Value.ToString(),
+                                                                                                                   Value = row.Cells["QValue"].Value.ToString(),
                                                                                                                    IsActive = true
                                                                                                                }).ToList();
     }

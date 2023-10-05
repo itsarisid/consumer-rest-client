@@ -51,6 +51,9 @@ namespace Connector
                 throw new NullReferenceException(nameof(request));
             }
 
+            var header = apiHeaderService.FindBy(x => x.ReqId==request.Id).ToList();
+            var parameters = apiQueryService.FindBy(x => x.ReqId==request.Id).ToList();
+
             settings = new AppSettings
             {
                 AppName = apiDetails.Name,
@@ -73,8 +76,8 @@ namespace Connector
                     {
                         Method=apiDetails.Method.ToEnum<Method>(Method.Get),
                         Uri=request.ResourceUrl??"",
-                        Headers = Utility.ConvertToKeyValue<Header>(request.Headers),
-                        Parameters = Utility.ConvertToKeyValue<Models.QueryParameter>(request.QueryParameters),
+                        Headers = Utility.ConvertToKeyValue<Header>(header),
+                        Parameters = Utility.ConvertToKeyValue<Models.QueryParameter>(parameters),
                     }
                 },
                 BaseUrl = request.BaseUrl,

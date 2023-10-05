@@ -64,11 +64,11 @@
             Value = new DataGridViewTextBoxColumn();
             tabQueryParametersPage = new TabPage();
             dataGridViewQueryParameters = new DataGridView();
-            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             tabBodyPage = new TabPage();
             rtxBody = new RichTextBox();
             btnRun = new Button();
+            QKey = new DataGridViewTextBoxColumn();
+            QValue = new DataGridViewTextBoxColumn();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             tabControl.SuspendLayout();
@@ -413,24 +413,12 @@
             // 
             dataGridViewQueryParameters.AllowUserToOrderColumns = true;
             dataGridViewQueryParameters.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewQueryParameters.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2 });
+            dataGridViewQueryParameters.Columns.AddRange(new DataGridViewColumn[] { QKey, QValue });
             dataGridViewQueryParameters.Location = new Point(7, 7);
             dataGridViewQueryParameters.Name = "dataGridViewQueryParameters";
             dataGridViewQueryParameters.RowTemplate.Height = 25;
             dataGridViewQueryParameters.Size = new Size(440, 375);
             dataGridViewQueryParameters.TabIndex = 1;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            dataGridViewTextBoxColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewTextBoxColumn1.HeaderText = "Key";
-            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewTextBoxColumn2.HeaderText = "Values";
-            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
             // tabBodyPage
             // 
@@ -458,6 +446,18 @@
             btnRun.TabIndex = 29;
             btnRun.Text = "Run";
             btnRun.UseVisualStyleBackColor = true;
+            // 
+            // QKey
+            // 
+            QKey.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            QKey.HeaderText = "Key";
+            QKey.Name = "QKey";
+            // 
+            // QValue
+            // 
+            QValue.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            QValue.HeaderText = "Value";
+            QValue.Name = "QValue";
             // 
             // frmRestClient
             // 
@@ -527,12 +527,12 @@
         private DataGridViewTextBoxColumn Key;
         private DataGridViewTextBoxColumn Value;
         private DataGridView dataGridViewQueryParameters;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private ComboBox cmbContentType;
         private Label lblContentType;
         private TabPage tabBodyPage;
         private RichTextBox rtxBody;
         private Button btnRun;
+        private DataGridViewTextBoxColumn QKey;
+        private DataGridViewTextBoxColumn QValue;
     }
 }
