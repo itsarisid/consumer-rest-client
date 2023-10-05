@@ -1,5 +1,6 @@
 ﻿using Connector.Models;
 using Serilog;
+using System.Reflection;
 
 namespace Connector
 {
@@ -51,5 +52,29 @@ namespace Connector
         ///   <br />
         /// </returns>
         public static string GetEndpointName(this string endpoint) => endpoint.Split('/').Last().ToString();
+
+        public static List<KeyValueParameter> ConvertToKeyValue<T>(ICollection<T> list) => (from row in list
+                                                                                   select new KeyValueParameter
+                                                                                   {
+                                                                                       Key = GetValue<T>(row, "Key") ?? "",
+                                                                                       Value = GetValue<T>(row, "Value") ?? "",
+                                                                                   }).ToList();
+
+        public static string? GetValue<T>(T obj, string name)
+        {
+            if (obj == null) return null;
+
+            if (string.IsNullOrEmpty(name)) return null;
+
+            var type = obj.GetType();
+
+            var prop = type.GetProperty(name);
+
+            if (prop == null) return null;
+
+            var list = prop.GetValue(obj);
+
+            return list?.ToString();
+        }
     }
 }

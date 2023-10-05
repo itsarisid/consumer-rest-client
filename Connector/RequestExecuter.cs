@@ -66,14 +66,15 @@ namespace Connector
                     Password = apiDetails.Password,
                     APIKey = apiDetails.Apikey
                 },
-                OutputDirectory = "C:\\Users\\Sajid Khan\\source\\repos\\consumer-rest-client\\Connector\\Output",
+                OutputDirectory = "D:\\consumer-rest-client\\Connector\\Output",
                 Requests = new List<RequestModel>
                 {
                     new RequestModel
                     {
                         Method=apiDetails.Method.ToEnum<Method>(Method.Get),
-                        Uri=request.ResourceUrl,
-                        Headers = new List<KeyValueParameter>()
+                        Uri=request.ResourceUrl??"",
+                        Headers = Utility.ConvertToKeyValue<Header>(request.Headers),
+                        Parameters = Utility.ConvertToKeyValue<Models.QueryParameter>(request.QueryParameters),
                     }
                 },
                 BaseUrl = request.BaseUrl,
@@ -102,7 +103,7 @@ namespace Connector
             {
                 if (request.Page != null)
                 {
-                    WithPagination(apiExecutor, _client, request);
+                   // WithPagination(apiExecutor, _client, request);
                 }
                 else
                 {
