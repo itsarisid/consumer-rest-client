@@ -8,14 +8,11 @@ using System.Threading.Tasks;
 using Connector.Models;
 using System.Windows.Forms;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace Connector.Client
 {
-    internal class Utilities
-    {
-    }
-
-    public static class ObjectToTreeView
+    public static class Utilities
     {
         private sealed class IndexContainer
         {
@@ -23,6 +20,10 @@ namespace Connector.Client
             public int Inc() => _n++;
         }
 
+        /// <summary>Fills the TreeView.</summary>
+        /// <param name="node">The node.</param>
+        /// <param name="tok">The tok.</param>
+        /// <param name="s">The s.</param>
         private static void FillTreeView(TreeNode node, JToken tok, Stack<IndexContainer> s)
         {
             if (tok.Type == JTokenType.Object)
@@ -85,6 +86,10 @@ namespace Connector.Client
             }
         }
 
+        /// <summary>Sets the object as json.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="tv">The tv.</param>
+        /// <param name="obj">The object.</param>
         public static void SetObjectAsJson<T>(this TreeView tv, T obj)
         {
             tv.BeginUpdate();
@@ -103,6 +108,11 @@ namespace Connector.Client
             }
         }
 
+        /// <summary>Converts to header.</summary>
+        /// <param name="headers">The headers.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
         public static List<Header> ConvertToHeader(this DataGridViewRowCollection headers) => (from row in headers.OfType<DataGridViewRow>()
                                                                                                where row.Cells["Key"]?.Value != null && row.Cells["Value"]?.Value != null
                                                                                                select new Header
@@ -112,6 +122,11 @@ namespace Connector.Client
                                                                                                    IsActive = true
                                                                                                }).ToList();
 
+        /// <summary>Converts to query parameters.</summary>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
         public static List<QueryParameter> ConvertToQueryParameters(this DataGridViewRowCollection parameters) => (from row in parameters.OfType<DataGridViewRow>()
                                                                                                                where row.Cells["QKey"]?.Value != null && row.Cells["QValue"]?.Value != null
                                                                                                                select new QueryParameter
@@ -120,5 +135,52 @@ namespace Connector.Client
                                                                                                                    Value = row.Cells["QValue"].Value.ToString(),
                                                                                                                    IsActive = true
                                                                                                                }).ToList();
+
+        /// <summary>Parse JSON string, individual tokens become TreeView Nodes ~mwr</summary>
+        /// <param name="oTV">TreeView control to display parsed JSON</param>
+        /// <param name="sJSON">Incoming JSON string</param>
+        /// <param name="rootName">Title of top node in TreeView wrapping all JSON</param>
+        public static void JsonToTreeview(TreeView oTV, string sJSON, string rootName)
+        {
+            JContainer json = sJSON.StartsWith("[")
+                            ? (JContainer)JArray.Parse(sJSON)
+                            : (JContainer)JObject.Parse(sJSON);
+
+            oTV.Nodes.Add(Utilities.Ele2Node(json, rootName));
+        }
+
+        /// <summary>Ele2s the node.</summary>
+        /// <param name="oJthingy">The o jthingy.</param>
+        /// <param name="text">The text.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        /// <exception cref="System.Exception">clsJSON2Treeview can't interpret object:" + oJthingy.GetType().Name</exception>
+        public static TreeNode Ele2Node(object oJthingy, string text = "")
+        {
+            TreeNode oThisNode = new TreeNode(text);
+
+            switch (oJthingy.GetType().Name) //~mwr could not find parent object for all three JObject, JArray, JValue
+            {
+                case "JObject":
+                    foreach (KeyValuePair<string, JToken> oJtok in (JObject)oJthingy)
+                        oThisNode.Nodes.Add(Ele2Node(oJtok.Value, oJtok.Key));
+                    break;
+                case "JArray":
+                    int i = 0;
+                    foreach (JToken oJtok in (JArray)oJthingy)
+                        oThisNode.Nodes.Add(Ele2Node(oJtok, string.Format("[{0}]", i++)));
+
+                    if (i == 0) oThisNode.Nodes.Add("[]"); //to handle empty arrays
+                    break;
+                case "JValue":
+                    oThisNode.Nodes.Add(new TreeNode(oJthingy.ToString()));
+                    break;
+                default:
+                    throw new System.Exception("clsJSON2Treeview can't interpret object:" + oJthingy.GetType().Name);
+            }
+
+            return oThisNode;
+        }
     }
 }

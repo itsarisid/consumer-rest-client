@@ -17,6 +17,7 @@ using Connector.Services;
 using Connector.Repositories;
 using Newtonsoft.Json.Linq;
 using Azure.Core;
+using System.IO;
 
 namespace Connector
 {
@@ -38,8 +39,17 @@ namespace Connector
             apiRequestService = new Service<ApiRequest>(new Repository<ApiRequest>());
             apiHeaderService = new Service<Header>(new Repository<Header>());
             apiQueryService = new Service<Models.QueryParameter>(new Repository<Models.QueryParameter>());
+
+            data = new StringBuilder();
         }
 
+        /// <summary>Initializes this instance.</summary>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        /// <exception cref="System.NullReferenceException">apiDetails
+        /// or
+        /// request</exception>
         public RequestExecuter Initialize()
         {
             var apiDetails = apiDetailService.FindBy(x => x.Name == "Klaviyo").FirstOrDefault();
@@ -71,7 +81,7 @@ namespace Connector
                     Password = apiDetails.Password,
                     APIKey = apiDetails.Apikey
                 },
-                OutputDirectory = "D:\\consumer-rest-client\\Connector\\Output",
+                OutputDirectory = "C:\\Users\\Sajid Khan\\source\\repos\\consumer-rest-client\\Connector\\Output",
                 Requests = new List<RequestModel>
                 {
                     new RequestModel
@@ -90,6 +100,11 @@ namespace Connector
             return this;
         }
 
+        /// <summary>Runs this instance.</summary>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException">BaseUrl</exception>
         public string Run()
         {
             if (string.IsNullOrEmpty(settings?.BaseUrl)) throw new ArgumentNullException(nameof(settings.BaseUrl));
@@ -112,7 +127,7 @@ namespace Connector
                 }
                 else
                 {
-                    ExcuteRequest(apiExecutor, _client, request);
+                    ExecuteRequest(apiExecutor, _client, request);
                 }
             }
 
@@ -121,7 +136,14 @@ namespace Connector
             return data.ToString();
         }
 
-        private RequestExecuter ExcuteRequest(RestApiExecutor apiExecutor, IClient client, RequestModel requestModel)
+        /// <summary>Execute the request.</summary>
+        /// <param name="apiExecutor">The API executor.</param>
+        /// <param name="client">The client.</param>
+        /// <param name="requestModel">The request model.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        private RequestExecuter ExecuteRequest(RestApiExecutor apiExecutor, IClient client, RequestModel requestModel)
         {
             RequestBuilder requestBuilder = new(requestModel);
 
@@ -151,6 +173,14 @@ namespace Connector
 
                 string _data = response.GetResponseData();
                 data.AppendLine(_data);
+
+
+                var path = string.IsNullOrEmpty(settings?.OutputDirectory) ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : settings.OutputDirectory;
+
+                path = $"{path}\\{requestModel.Uri.GetEndpointName()}.json";
+
+                //Save file in JSON
+                response.SaveInFile(path);
             }
             return this;
         }

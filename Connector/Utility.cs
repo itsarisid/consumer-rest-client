@@ -53,6 +53,12 @@ namespace Connector
         /// </returns>
         public static string GetEndpointName(this string endpoint) => endpoint.Split('/').Last().ToString();
 
+        /// <summary>Converts to key value.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">The list.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
         public static List<KeyValueParameter> ConvertToKeyValue<T>(ICollection<T> list) => (from row in list
                                                                                    select new KeyValueParameter
                                                                                    {
@@ -60,6 +66,13 @@ namespace Connector
                                                                                        Value = GetValue<T>(row, "Value") ?? "",
                                                                                    }).ToList();
 
+        /// <summary>Gets the value.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The object.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>
+        ///   <br />
+        /// </returns>
         public static string? GetValue<T>(T obj, string name)
         {
             if (obj == null) return null;
