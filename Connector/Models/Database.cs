@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Connector.Models;
 
@@ -23,8 +24,21 @@ public partial class Database : DbContext
 
     public virtual DbSet<QueryParameter> QueryParameters { get; set; }
 
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //    => optionsBuilder.UseSqlServer("Name=ConnectionStrings:Default");
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:Default");
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            // add IConfigurationRoot  to get connection string 
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json")
+            .Build();
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("Default"));
+        }
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
