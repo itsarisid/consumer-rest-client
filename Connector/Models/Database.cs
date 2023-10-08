@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Connector.Models;
 
-public partial class MomentsDb : DbContext
+public partial class Database : DbContext
 {
-    public MomentsDb()
+    public Database()
     {
     }
 
-    public MomentsDb(DbContextOptions<MomentsDb> options)
+    public Database(DbContextOptions<Database> options)
         : base(options)
     {
     }
@@ -23,7 +23,8 @@ public partial class MomentsDb : DbContext
 
     public virtual DbSet<QueryParameter> QueryParameters { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)=> optionsBuilder.UseSqlServer("Server=localhost;Database=Connector;Trusted_Connection=True;TrustServerCertificate=True;");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:Default");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
