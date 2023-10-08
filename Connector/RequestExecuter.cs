@@ -123,20 +123,21 @@ namespace Connector
                     OAuthTokenSecret = apiDetails.OauthTokenSecret,
                     UserName = apiDetails.UserName,
                     Password = apiDetails.Password,
-                    APIKey = apiDetails.Apikey
+                    APIKey = apiDetails.Apikey,
+                    URL = "https://home.mozu.com/api/platform/applications/authtickets/oauth"
                 },
                 OutputDirectory = "D:\\consumer-rest-client\\Connector\\Output",
                 Requests = new List<RequestModel>
                 {
                     new RequestModel
                     {
-                        Method=apiDetails.Method.ToEnum<Method>(Method.Get),
-                        Uri=request.ResourceUrl??"",
+                        Method = apiDetails.Method.ToEnum<Method>(Method.Get),
+                        Uri = request.ResourceUrl ?? "",
                         Headers = Utility.ConvertToKeyValue<Header>(header),
                         Parameters = Utility.ConvertToKeyValue<Entities.QueryParameter>(parameters),
                     }
                 },
-                BaseUrl = request.BaseUrl,
+                BaseUrl = "https://home.mozu.com/api/platform/applications/authtickets/oauth"// request.BaseUrl,
 
             };
 
