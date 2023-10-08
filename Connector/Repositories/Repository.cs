@@ -12,7 +12,7 @@ namespace Connector.Repositories
     public class Repository<T> : IRepository<T> where T : class
     {
         /// <summary>The following variable is going to hold the EmployeeDBContext instance</summary>
-        private ConnectorContext _context = null;
+        private MomentsDb _context = null;
 
         /// <summary>The following Variable is going to hold the DbSet Entity</summary>
         private DbSet<T> _dbSet = null;
@@ -20,7 +20,7 @@ namespace Connector.Repositories
         /// <summary>Initializes a new instance of the <see cref="Repository{T}" /> class.</summary>
         public Repository()
         {
-            this._context = new ConnectorContext();
+            this._context = new MomentsDb();
             //Whatever class name we specify while creating the instance of GenericRepository
             //That class name will be stored in the table variable
             _dbSet = _context.Set<T>();
@@ -28,7 +28,7 @@ namespace Connector.Repositories
 
         /// <summary>Initializes a new instance of the <see cref="Repository{T}" /> class.</summary>
         /// <param name="_context">The context.</param>
-        public Repository(ConnectorContext _context)
+        public Repository(MomentsDb _context)
         {
             this._context = _context;
             _dbSet = _context.Set<T>();

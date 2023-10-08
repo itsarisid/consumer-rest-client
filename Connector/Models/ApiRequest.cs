@@ -17,6 +17,8 @@ public partial class ApiRequest
 
     public string? ContentType { get; set; }
 
+    public string? RequestBody { get; set; }
+
     public string? Body { get; set; }
 
     public bool? IsSuccessful { get; set; }
