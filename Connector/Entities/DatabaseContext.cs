@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace Connector.Models;
+namespace Connector.Entities;
 
-public partial class Database : DbContext
+public partial class DatabaseContext : DbContext
 {
-    public Database()
+    public DatabaseContext()
     {
     }
 
-    public Database(DbContextOptions<Database> options)
+    public DatabaseContext(DbContextOptions<DatabaseContext> options)
         : base(options)
     {
     }
@@ -23,9 +23,6 @@ public partial class Database : DbContext
     public virtual DbSet<Header> Headers { get; set; }
 
     public virtual DbSet<QueryParameter> QueryParameters { get; set; }
-
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //    => optionsBuilder.UseSqlServer("Name=ConnectionStrings:Default");
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -75,6 +72,7 @@ public partial class Database : DbContext
             entity.Property(e => e.BaseUrl).HasMaxLength(550);
             entity.Property(e => e.ContentType).HasMaxLength(350);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Method).HasMaxLength(10);
             entity.Property(e => e.NextUrl).HasMaxLength(550);
             entity.Property(e => e.RequestBody).HasMaxLength(350);
             entity.Property(e => e.ResourceUrl).HasMaxLength(550);

@@ -1,4 +1,5 @@
 
+using Connector.Entities;
 using Connector.Models;
 using Connector.Repositories;
 using Connector.Services;
@@ -15,6 +16,7 @@ namespace Connector.Client
         {
             InitializeComponent();
             cmbMethod.DataSource = Enum.GetValues(typeof(Method));
+            cmbReqMethod.DataSource = Enum.GetValues(typeof(Method));
             cmbAuthType.DataSource = Enum.GetValues(typeof(AuthenticatorType));
             //cmbContentType.DataSource = Enum.GetValues(typeof(ContentType));
             apiDetailService = new Service<ApiDetail>(new Repository<ApiDetail>());
@@ -104,5 +106,6 @@ namespace Connector.Client
 
             Utilities.JsonToTreeview(trOutput, data, "root");
         }
+
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Connector.Models;
+namespace Connector.Entities;
 
 public partial class ApiDetail
 {
@@ -28,6 +28,8 @@ public partial class ApiDetail
     public string? UserName { get; set; }
 
     public string? Password { get; set; }
+
+    public string? Body { get; set; }
 
     public string? Apikey { get; set; }
 

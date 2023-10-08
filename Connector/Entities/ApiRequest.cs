@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Connector.Models;
+namespace Connector.Entities;
 
 public partial class ApiRequest
 {
@@ -16,6 +16,8 @@ public partial class ApiRequest
     public string? NextUrl { get; set; }
 
     public string? ContentType { get; set; }
+
+    public string? Method { get; set; }
 
     public string? RequestBody { get; set; }
 

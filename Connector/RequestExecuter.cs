@@ -18,6 +18,7 @@ using Connector.Repositories;
 using Newtonsoft.Json.Linq;
 using Azure.Core;
 using System.IO;
+using Connector.Entities;
 
 namespace Connector
 {
@@ -26,7 +27,7 @@ namespace Connector
         private readonly IService<ApiDetail> apiDetailService;
         private readonly IService<ApiRequest> apiRequestService;
         private readonly IService<Header> apiHeaderService;
-        private readonly IService<Models.QueryParameter> apiQueryService;
+        private readonly IService<Entities.QueryParameter> apiQueryService;
 
         private StringBuilder data;
 
@@ -40,7 +41,7 @@ namespace Connector
             apiDetailService = new Service<ApiDetail>(new Repository<ApiDetail>());
             apiRequestService = new Service<ApiRequest>(new Repository<ApiRequest>());
             apiHeaderService = new Service<Header>(new Repository<Header>());
-            apiQueryService = new Service<Models.QueryParameter>(new Repository<Models.QueryParameter>());
+            apiQueryService = new Service<Entities.QueryParameter>(new Repository<Entities.QueryParameter>());
 
             data = new StringBuilder();
         }
@@ -132,7 +133,7 @@ namespace Connector
                         Method=apiDetails.Method.ToEnum<Method>(Method.Get),
                         Uri=request.ResourceUrl??"",
                         Headers = Utility.ConvertToKeyValue<Header>(header),
-                        Parameters = Utility.ConvertToKeyValue<Models.QueryParameter>(parameters),
+                        Parameters = Utility.ConvertToKeyValue<Entities.QueryParameter>(parameters),
                     }
                 },
                 BaseUrl = request.BaseUrl,

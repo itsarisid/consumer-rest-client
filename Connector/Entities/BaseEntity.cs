@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Connector.Models
+namespace Connector.Entities
 {
     public class BaseEntity
     {

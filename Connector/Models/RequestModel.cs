@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Connector.Entities;
 using RestSharp;
 
 namespace Connector.Models
@@ -31,6 +30,6 @@ namespace Connector.Models
         public ApiDetail ApiDetail { get; set; }
         public ApiRequest ApiRequest { get; set; }
         public List<Header> Headers { get; set; }
-        public List<QueryParameter> QueryParameters { get; set; }
+        public List<Entities.QueryParameter> QueryParameters { get; set; }
     }
 }

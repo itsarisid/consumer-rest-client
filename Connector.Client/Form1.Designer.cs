@@ -64,11 +64,13 @@
             Value = new DataGridViewTextBoxColumn();
             tabQueryParametersPage = new TabPage();
             dataGridViewQueryParameters = new DataGridView();
-            tabBodyPage = new TabPage();
-            rtxBody = new RichTextBox();
-            btnRun = new Button();
             QKey = new DataGridViewTextBoxColumn();
             QValue = new DataGridViewTextBoxColumn();
+            tabBodyPage = new TabPage();
+            rtxBody = new RichTextBox();
+            cmbReqMethod = new ComboBox();
+            lblReqMethod = new Label();
+            btnRun = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             tabControl.SuspendLayout();
@@ -200,10 +202,10 @@
             // 
             // txtBaseUrl
             // 
-            txtBaseUrl.Location = new Point(134, 30);
+            txtBaseUrl.Location = new Point(129, 30);
             txtBaseUrl.Name = "txtBaseUrl";
             txtBaseUrl.PlaceholderText = "Base URL";
-            txtBaseUrl.Size = new Size(346, 23);
+            txtBaseUrl.Size = new Size(351, 23);
             txtBaseUrl.TabIndex = 15;
             // 
             // lblBaseUrl
@@ -217,10 +219,10 @@
             // 
             // txtResourceUrl
             // 
-            txtResourceUrl.Location = new Point(134, 76);
+            txtResourceUrl.Location = new Point(129, 76);
             txtResourceUrl.Name = "txtResourceUrl";
             txtResourceUrl.PlaceholderText = "Resource URL";
-            txtResourceUrl.Size = new Size(346, 23);
+            txtResourceUrl.Size = new Size(351, 23);
             txtResourceUrl.TabIndex = 17;
             // 
             // lblResourceUrl
@@ -338,7 +340,9 @@
             // groupBox2
             // 
             groupBox2.Controls.Add(tabControl);
+            groupBox2.Controls.Add(cmbReqMethod);
             groupBox2.Controls.Add(txtNextUrl);
+            groupBox2.Controls.Add(lblReqMethod);
             groupBox2.Controls.Add(lblNextUrl);
             groupBox2.Controls.Add(txtResourceUrl);
             groupBox2.Controls.Add(lblResourceUrl);
@@ -356,11 +360,11 @@
             tabControl.Controls.Add(tabHeadersPage);
             tabControl.Controls.Add(tabQueryParametersPage);
             tabControl.Controls.Add(tabBodyPage);
-            tabControl.Location = new Point(18, 123);
+            tabControl.Location = new Point(18, 174);
             tabControl.Multiline = true;
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
-            tabControl.Size = new Size(462, 416);
+            tabControl.Size = new Size(462, 365);
             tabControl.SizeMode = TabSizeMode.FillToRight;
             tabControl.TabIndex = 27;
             // 
@@ -370,7 +374,7 @@
             tabHeadersPage.Location = new Point(4, 24);
             tabHeadersPage.Name = "tabHeadersPage";
             tabHeadersPage.Padding = new Padding(3);
-            tabHeadersPage.Size = new Size(454, 388);
+            tabHeadersPage.Size = new Size(454, 337);
             tabHeadersPage.TabIndex = 0;
             tabHeadersPage.Text = "Headers";
             tabHeadersPage.UseVisualStyleBackColor = true;
@@ -404,7 +408,7 @@
             tabQueryParametersPage.Location = new Point(4, 24);
             tabQueryParametersPage.Name = "tabQueryParametersPage";
             tabQueryParametersPage.Padding = new Padding(3);
-            tabQueryParametersPage.Size = new Size(454, 388);
+            tabQueryParametersPage.Size = new Size(454, 337);
             tabQueryParametersPage.TabIndex = 1;
             tabQueryParametersPage.Text = "Query Parameters";
             tabQueryParametersPage.UseVisualStyleBackColor = true;
@@ -420,12 +424,24 @@
             dataGridViewQueryParameters.Size = new Size(440, 375);
             dataGridViewQueryParameters.TabIndex = 1;
             // 
+            // QKey
+            // 
+            QKey.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            QKey.HeaderText = "Key";
+            QKey.Name = "QKey";
+            // 
+            // QValue
+            // 
+            QValue.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            QValue.HeaderText = "Value";
+            QValue.Name = "QValue";
+            // 
             // tabBodyPage
             // 
             tabBodyPage.Controls.Add(rtxBody);
             tabBodyPage.Location = new Point(4, 24);
             tabBodyPage.Name = "tabBodyPage";
-            tabBodyPage.Size = new Size(454, 388);
+            tabBodyPage.Size = new Size(454, 337);
             tabBodyPage.TabIndex = 2;
             tabBodyPage.Text = "Body";
             tabBodyPage.UseVisualStyleBackColor = true;
@@ -438,6 +454,23 @@
             rtxBody.TabIndex = 0;
             rtxBody.Text = "";
             // 
+            // cmbReqMethod
+            // 
+            cmbReqMethod.FormattingEnabled = true;
+            cmbReqMethod.Location = new Point(129, 120);
+            cmbReqMethod.Name = "cmbReqMethod";
+            cmbReqMethod.Size = new Size(108, 23);
+            cmbReqMethod.TabIndex = 17;
+            // 
+            // lblReqMethod
+            // 
+            lblReqMethod.AutoSize = true;
+            lblReqMethod.Location = new Point(18, 123);
+            lblReqMethod.Name = "lblReqMethod";
+            lblReqMethod.Size = new Size(49, 15);
+            lblReqMethod.TabIndex = 16;
+            lblReqMethod.Text = "Method";
+            // 
             // btnRun
             // 
             btnRun.Location = new Point(679, 22);
@@ -446,18 +479,6 @@
             btnRun.TabIndex = 29;
             btnRun.Text = "Run";
             btnRun.UseVisualStyleBackColor = true;
-            // 
-            // QKey
-            // 
-            QKey.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            QKey.HeaderText = "Key";
-            QKey.Name = "QKey";
-            // 
-            // QValue
-            // 
-            QValue.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            QValue.HeaderText = "Value";
-            QValue.Name = "QValue";
             // 
             // frmRestClient
             // 
@@ -534,5 +555,7 @@
         private Button btnRun;
         private DataGridViewTextBoxColumn QKey;
         private DataGridViewTextBoxColumn QValue;
+        private ComboBox cmbReqMethod;
+        private Label lblReqMethod;
     }
 }
