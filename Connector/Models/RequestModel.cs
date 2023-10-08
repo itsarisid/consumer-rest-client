@@ -25,4 +25,12 @@ namespace Connector.Models
         public int Total { get; set; }
         public KeyValueParameter Number { get; set; }
     }
+
+    public class ValidateRequestParam
+    {
+        public ApiDetail ApiDetail { get; set; }
+        public ApiRequest ApiRequest { get; set; }
+        public List<Header> Headers { get; set; }
+        public List<QueryParameter> QueryParameters { get; set; }
+    }
 }
