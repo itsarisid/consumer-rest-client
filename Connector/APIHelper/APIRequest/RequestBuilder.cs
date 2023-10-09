@@ -1,10 +1,11 @@
 ﻿using RestSharp;
 using Connector.Models;
 using Serilog;
+using System.Runtime;
 
 namespace Connector.APIHelper.APIRequest
 {
-    public class RequestBuilder(RequestModel _settings)
+    public class RequestBuilder(RequestModel _settings) 
     {
         /// <summary>Builds the request.</summary>
         /// <returns>
@@ -41,7 +42,18 @@ namespace Connector.APIHelper.APIRequest
         /// </returns>
         private AbstractRequest PostRequest()
         {
-            throw new NotImplementedException();
+            Log.Logger.Information(_settings.Uri);
+
+            var headers = _settings.Headers.ToDictionary(v => v.Key, v => v.Value);
+            var parameters = _settings.Parameters.ToDictionary(v => v.Key, v => v.Value);
+
+            var request = new PostRequestBuilder()
+                  .WithUrl(_settings.Uri)
+                  .WithBody<string>(_settings.Body, _settings.RequestBodyType)
+                  .WithHeaders(headers)
+                  .WithQueryParameters(parameters);
+
+            return request;
         }
 
         /// <summary>Puts the request.</summary>

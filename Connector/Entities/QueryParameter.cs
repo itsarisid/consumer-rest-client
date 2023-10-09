@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Connector.Models;
+namespace Connector.Entities;
 
 public partial class QueryParameter
 {

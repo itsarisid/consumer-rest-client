@@ -1,5 +1,6 @@
 ﻿// Ignore Spelling: Api
 using Connector.APIHelper.APIRequest;
+using Connector.APIHelper.Client;
 using Connector.Models;
 using RestSharp.Authenticators;
 using RestSharp.Authenticators.OAuth2;
@@ -24,7 +25,7 @@ namespace Connector.Client
             AuthenticatorType.OAuth1 => OAuth1Authenticator.ForRequestToken(parameter.ConsumerKey, parameter.ConsumerSecret),
             AuthenticatorType.OAuth2 => new OAuth2AuthorizationRequestHeaderAuthenticator(parameter.Token, "Bearer"),
             AuthenticatorType.JWT => new JwtAuthenticator(parameter.Token),
-            AuthenticatorType.Custom => throw new NotImplementedException("Not Implemented custom Authenticator"),
+            AuthenticatorType.Custom => new DefaultAuthenticator(parameter.URL, parameter.ConsumerKey, parameter.ConsumerSecret),
             _ => throw new ArgumentException(message: "invalid authenticator type", paramName: nameof(authenticatorType)),
         };
     }

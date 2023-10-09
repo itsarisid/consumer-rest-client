@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Connector.Entities;
 using RestSharp;
 
 namespace Connector.Models
@@ -9,8 +8,16 @@ namespace Connector.Models
         public Method Method { get; set; }
         public string Uri { get; set; }
         public Page Page { get; set; }
+
+        public string Body { get; set; }
+        public RequestBodyType RequestBodyType { get; set; }
         public List<KeyValueParameter> Headers { get; set; }
         public List<KeyValueParameter> Parameters { get; set; }
+    }
+
+    public class RequestBody
+    {
+        public string Body { get; set; }
     }
 
     public class KeyValueParameter
@@ -31,6 +38,6 @@ namespace Connector.Models
         public ApiDetail ApiDetail { get; set; }
         public ApiRequest ApiRequest { get; set; }
         public List<Header> Headers { get; set; }
-        public List<QueryParameter> QueryParameters { get; set; }
+        public List<Entities.QueryParameter> QueryParameters { get; set; }
     }
 }
