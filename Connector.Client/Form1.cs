@@ -3,7 +3,7 @@ using Connector.Models;
 using Connector.Repositories;
 using Connector.Services;
 using Newtonsoft.Json.Linq;
-using System.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Connector.Client
 {
@@ -23,17 +23,13 @@ namespace Connector.Client
 
         private void frmRestClient_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void trOutput_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            //trOutput.SelectedNode = e.Node;
-            //txtNextUrl.Text = e.Node.Text;
-
-            List<TreeNode> ancestors = trOutput.SelectedNode.Ancestors();
-
-            ancestors.RemoveAt(0);
+            trOutput.SelectedNode = e.Node;
+            txtNextUrl.Text = e.Node.Text;
         }
 
 
@@ -69,26 +65,44 @@ namespace Connector.Client
 
         private void btnAuthGo_Click(object sender, EventArgs e)
         {
-            string linkNodeName = "data.links.self";
-            var executer = new RequestExecuter();
+            var headers = dataGridViewHeader.Rows.ConvertToHeader();
+            var queryParameters = dataGridViewQueryParameters.Rows.ConvertToQueryParameters();
+            var apiDetail = new ApiDetail
+            {
+                Name = txtName.Text,
+                AuthUrl = txtAuthUrl.Text,
+                Method = cmbMethod.SelectedValue.ToString(),
+                AuthType = cmbAuthType.SelectedValue.ToString(),
+                Token = txtToken.Text,
+                CreatedDate = DateTime.Now,
+                IsActive = true,
+            };
+            var request = new ApiRequest
+            {
+                BaseUrl = txtBaseUrl.Text,
+                ResourceUrl = txtResourceUrl.Text,
+                NextUrl = txtNextUrl.Text,
+                Body = rtxBody.Text,
+                Headers = headers,
+                QueryParameters = queryParameters,
+                CreatedDate = DateTime.Now,
+                IsActive = true,
+            };
 
-            var data = executer.Initialize().Run();
+            var executer = new RequestExecuter
+            {
+                validateRequest = new ValidateRequestParam
+                {
+                    ApiDetail = apiDetail,
+                    ApiRequest = request,
+                }
+            };
 
-            JObject jo = JObject.Parse(data);
 
-            //JToken link = jo.Descendants()
-            //    .Where(t => t.Type == JTokenType.Property && ((JProperty)t).Name.Contains(linkNodeName, StringComparison.CurrentCultureIgnoreCase))
-            //    .Select(p => ((JProperty)p).Value)
-            //    .FirstOrDefault();
+            // var data = executer.Initialize().Run();
+            var data = executer.Validate().Run();
 
-            //if (link != null)
-            //{
-            //   var next  = link.Value<string>(nextUrl);
-            //}
-
-            var name = jo.SelectToken(linkNodeName)?.ToString();
-
-            Utilities.JsonToTreeview(trOutput, data,"root");
+            Utilities.JsonToTreeview(trOutput, data, "root");
         }
     }
 }

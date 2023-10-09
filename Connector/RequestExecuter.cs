@@ -32,6 +32,8 @@ namespace Connector
 
         private AppSettings settings;
 
+        public ValidateRequestParam validateRequest;
+
 
         public RequestExecuter()
         {
@@ -52,21 +54,60 @@ namespace Connector
         /// request</exception>
         public RequestExecuter Initialize()
         {
-            string name = "Klaviyo";
-            //string name = "Klaviyo API";
-            var apiDetails = apiDetailService.FindBy(x => x.Name == name).FirstOrDefault();
+            if (validateRequest == null)
+            {
+                var apiDetails = apiDetailService.FindBy(x => x.Name == "Klaviyo").FirstOrDefault();
+                if (apiDetails == null)
+                {
+                    throw new NullReferenceException(nameof(apiDetails));
+                }
+                var request = apiRequestService.FindBy(x => x.ApiId == apiDetails.Id).FirstOrDefault();
+                if (request == null)
+                {
+                    throw new NullReferenceException(nameof(request));
+                }
+
+                request.Headers = apiHeaderService.FindBy(x => x.ReqId == request.Id).ToList();
+                request.QueryParameters = apiQueryService.FindBy(x => x.ReqId == request.Id).ToList();
+
+                validateRequest = new ValidateRequestParam
+                {
+                    ApiDetail = apiDetails,
+                    ApiRequest = request,
+                };
+            }
+            return this;
+        }
+
+
+        /// <summary>Validates this instance.</summary>
+        /// <returns>
+        ///   <br />
+        /// </returns>
+        /// <exception cref="System.NullReferenceException">validateRequest
+        /// or
+        /// apiDetails
+        /// or
+        /// request</exception>
+        public RequestExecuter Validate()
+        {
+            if (validateRequest == null)
+            {
+                throw new NullReferenceException(nameof(validateRequest));
+            }
+            var apiDetails = validateRequest.ApiDetail;
             if (apiDetails == null)
             {
                 throw new NullReferenceException(nameof(apiDetails));
             }
-            var request = apiRequestService.FindBy(x => x.ApiId == apiDetails.Id).FirstOrDefault();
+            var request = validateRequest.ApiRequest;
             if (request == null)
             {
                 throw new NullReferenceException(nameof(request));
             }
 
-            var header = apiHeaderService.FindBy(x => x.ReqId == request.Id).ToList();
-            var parameters = apiQueryService.FindBy(x => x.ReqId == request.Id).ToList();
+            var header = validateRequest.ApiRequest.Headers;
+            var parameters = validateRequest.ApiRequest.QueryParameters;
 
             settings = new AppSettings
             {
@@ -83,7 +124,7 @@ namespace Connector
                     Password = apiDetails.Password,
                     APIKey = apiDetails.Apikey
                 },
-                OutputDirectory = "C:\\Users\\Sajid Khan\\source\\repos\\consumer-rest-client\\Connector\\Output",
+                OutputDirectory = "D:\\consumer-rest-client\\Connector\\Output",
                 Requests = new List<RequestModel>
                 {
                     new RequestModel

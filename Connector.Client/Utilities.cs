@@ -128,13 +128,13 @@ namespace Connector.Client
         ///   <br />
         /// </returns>
         public static List<QueryParameter> ConvertToQueryParameters(this DataGridViewRowCollection parameters) => (from row in parameters.OfType<DataGridViewRow>()
-                                                                                                               where row.Cells["QKey"]?.Value != null && row.Cells["QValue"]?.Value != null
-                                                                                                               select new QueryParameter
-                                                                                                               {
-                                                                                                                   Key = row.Cells["QKey"].Value.ToString(),
-                                                                                                                   Value = row.Cells["QValue"].Value.ToString(),
-                                                                                                                   IsActive = true
-                                                                                                               }).ToList();
+                                                                                                                   where row.Cells["QKey"]?.Value != null && row.Cells["QValue"]?.Value != null
+                                                                                                                   select new QueryParameter
+                                                                                                                   {
+                                                                                                                       Key = row.Cells["QKey"].Value.ToString(),
+                                                                                                                       Value = row.Cells["QValue"].Value.ToString(),
+                                                                                                                       IsActive = true
+                                                                                                                   }).ToList();
 
         /// <summary>Parse JSON string, individual tokens become TreeView Nodes ~mwr</summary>
         /// <param name="oTV">TreeView control to display parsed JSON</param>
