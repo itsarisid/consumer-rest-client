@@ -34,20 +34,20 @@ public partial class ConnectorContext : DbContext
                 .HasMaxLength(350)
                 .HasColumnName("APIKey");
             entity.Property(e => e.AuthType).HasMaxLength(10);
-            entity.Property(e => e.AuthUrl).HasMaxLength(350);
-            entity.Property(e => e.ConsumerKey).HasMaxLength(350);
-            entity.Property(e => e.ConsumerSecret).HasMaxLength(350);
+            entity.Property(e => e.AuthUrl).HasMaxLength(1000);
+            entity.Property(e => e.ConsumerKey).HasMaxLength(1000);
+            entity.Property(e => e.ConsumerSecret).HasMaxLength(1000);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.Method).HasMaxLength(10);
             entity.Property(e => e.Name).HasMaxLength(50);
             entity.Property(e => e.OauthToken)
-                .HasMaxLength(350)
+                .HasMaxLength(1000)
                 .HasColumnName("OAuthToken");
             entity.Property(e => e.OauthTokenSecret)
-                .HasMaxLength(350)
+                .HasMaxLength(1000)
                 .HasColumnName("OAuthTokenSecret");
             entity.Property(e => e.Password).HasMaxLength(350);
-            entity.Property(e => e.Token).HasMaxLength(350);
+            entity.Property(e => e.Token).HasMaxLength(1000);
             entity.Property(e => e.UserName).HasMaxLength(350);
         });
 
@@ -73,9 +73,9 @@ public partial class ConnectorContext : DbContext
             entity.ToTable("Header");
 
             entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.Key).HasMaxLength(350);
+            entity.Property(e => e.Key).HasMaxLength(1000);
             entity.Property(e => e.ReqId).HasColumnName("ReqID");
-            entity.Property(e => e.Value).HasMaxLength(350);
+            entity.Property(e => e.Value).HasMaxLength(1000);
 
             entity.HasOne(d => d.Req).WithMany(p => p.Headers)
                 .HasForeignKey(d => d.ReqId)
@@ -87,9 +87,9 @@ public partial class ConnectorContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK_QueryParams");
 
             entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.Key).HasMaxLength(350);
+            entity.Property(e => e.Key).HasMaxLength(1000);
             entity.Property(e => e.ReqId).HasColumnName("ReqID");
-            entity.Property(e => e.Value).HasMaxLength(350);
+            entity.Property(e => e.Value).HasMaxLength(1000);
 
             entity.HasOne(d => d.Req).WithMany(p => p.QueryParameters)
                 .HasForeignKey(d => d.ReqId)

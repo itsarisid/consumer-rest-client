@@ -3,6 +3,7 @@ using Connector.Models;
 using Connector.Repositories;
 using Connector.Services;
 using Newtonsoft.Json.Linq;
+using System.Linq;
 
 namespace Connector.Client
 {
@@ -27,8 +28,12 @@ namespace Connector.Client
 
         private void trOutput_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            trOutput.SelectedNode = e.Node;
-            txtNextUrl.Text = e.Node.Text;
+            //trOutput.SelectedNode = e.Node;
+            //txtNextUrl.Text = e.Node.Text;
+
+            List<TreeNode> ancestors = trOutput.SelectedNode.Ancestors();
+
+            ancestors.RemoveAt(0);
         }
 
 
@@ -64,11 +69,26 @@ namespace Connector.Client
 
         private void btnAuthGo_Click(object sender, EventArgs e)
         {
+            string linkNodeName = "data.links.self";
             var executer = new RequestExecuter();
 
             var data = executer.Initialize().Run();
 
-            Utilities.JsonToTreeview(trOutput, data, "root");
+            JObject jo = JObject.Parse(data);
+
+            //JToken link = jo.Descendants()
+            //    .Where(t => t.Type == JTokenType.Property && ((JProperty)t).Name.Contains(linkNodeName, StringComparison.CurrentCultureIgnoreCase))
+            //    .Select(p => ((JProperty)p).Value)
+            //    .FirstOrDefault();
+
+            //if (link != null)
+            //{
+            //   var next  = link.Value<string>(nextUrl);
+            //}
+
+            var name = jo.SelectToken(linkNodeName)?.ToString();
+
+            Utilities.JsonToTreeview(trOutput, data,"root");
         }
     }
 }

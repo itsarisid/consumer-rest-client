@@ -52,7 +52,9 @@ namespace Connector
         /// request</exception>
         public RequestExecuter Initialize()
         {
-            var apiDetails = apiDetailService.FindBy(x => x.Name == "Klaviyo").FirstOrDefault();
+            string name = "Klaviyo";
+            //string name = "Klaviyo API";
+            var apiDetails = apiDetailService.FindBy(x => x.Name == name).FirstOrDefault();
             if (apiDetails == null)
             {
                 throw new NullReferenceException(nameof(apiDetails));
