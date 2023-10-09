@@ -71,6 +71,8 @@
             cmbReqMethod = new ComboBox();
             lblReqMethod = new Label();
             btnRun = new Button();
+            cmbRequestBodyType = new ComboBox();
+            lblRequetBodyType = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             tabControl.SuspendLayout();
@@ -339,6 +341,8 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(cmbRequestBodyType);
+            groupBox2.Controls.Add(lblRequetBodyType);
             groupBox2.Controls.Add(tabControl);
             groupBox2.Controls.Add(cmbReqMethod);
             groupBox2.Controls.Add(txtNextUrl);
@@ -480,6 +484,23 @@
             btnRun.Text = "Run";
             btnRun.UseVisualStyleBackColor = true;
             // 
+            // cmbRequestBodyType
+            // 
+            cmbRequestBodyType.FormattingEnabled = true;
+            cmbRequestBodyType.Location = new Point(342, 118);
+            cmbRequestBodyType.Name = "cmbRequestBodyType";
+            cmbRequestBodyType.Size = new Size(138, 23);
+            cmbRequestBodyType.TabIndex = 29;
+            // 
+            // lblRequetBodyType
+            // 
+            lblRequetBodyType.AutoSize = true;
+            lblRequetBodyType.Location = new Point(261, 121);
+            lblRequetBodyType.Name = "lblRequetBodyType";
+            lblRequetBodyType.Size = new Size(61, 15);
+            lblRequetBodyType.TabIndex = 28;
+            lblRequetBodyType.Text = "Body Type";
+            // 
             // frmRestClient
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -557,5 +578,7 @@
         private DataGridViewTextBoxColumn QValue;
         private ComboBox cmbReqMethod;
         private Label lblReqMethod;
+        private ComboBox cmbRequestBodyType;
+        private Label lblRequetBodyType;
     }
 }

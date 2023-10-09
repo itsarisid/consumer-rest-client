@@ -19,6 +19,7 @@ namespace Connector.Client
             cmbMethod.DataSource = Enum.GetValues(typeof(Method));
             cmbReqMethod.DataSource = Enum.GetValues(typeof(Method));
             cmbAuthType.DataSource = Enum.GetValues(typeof(AuthenticatorType));
+            cmbRequestBodyType.DataSource = Enum.GetValues(typeof(RequestBodyType));
             //cmbContentType.DataSource = Enum.GetValues(typeof(ContentType));
             apiDetailService = new Service<ApiDetail>(new Repository<ApiDetail>());
             apiRequestService = new Service<ApiRequest>(new Repository<ApiRequest>());
@@ -53,12 +54,13 @@ namespace Connector.Client
             IsActive = true,
         };
 
-        private ApiRequest GetApiRequest()=> new ApiRequest
+        private ApiRequest GetApiRequest() => new ApiRequest
         {
             BaseUrl = txtBaseUrl.Text,
             ResourceUrl = txtResourceUrl.Text,
             NextUrl = txtNextUrl.Text,
             Body = rtxBody.Text,
+            ContentType = cmbRequestBodyType.SelectedValue.ToString(),
             Headers = dataGridViewHeader.Rows.ConvertToHeader(),
             QueryParameters = dataGridViewQueryParameters.Rows.ConvertToQueryParameters(),
             CreatedDate = DateTime.Now,
@@ -76,12 +78,12 @@ namespace Connector.Client
             var apiRequest = GetApiRequest();
             apiRequest.ApiId = details.Id;
 
-           _ = await apiRequestService.AddAsync(apiRequest);
+            _ = await apiRequestService.AddAsync(apiRequest);
         }
 
         private void btnAuthGo_Click(object sender, EventArgs e)
         {
-            var apiDetail =GetApiDetail();
+            var apiDetail = GetApiDetail();
             var request = GetApiRequest();
 
             var executer = new RequestExecuter
@@ -94,8 +96,8 @@ namespace Connector.Client
             };
 
 
-            // var data = executer.Initialize().Run();
-            var data = executer.Validate().Run();
+             var data = executer.Initialize().Run();
+            //var data = executer.Validate().Run();
 
             Utilities.JsonToTreeview(trOutput, data, "root");
         }
