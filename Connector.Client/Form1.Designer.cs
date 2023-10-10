@@ -57,6 +57,8 @@
             cmbContentType = new ComboBox();
             lblContentType = new Label();
             groupBox2 = new GroupBox();
+            cmbRequestBodyType = new ComboBox();
+            lblRequetBodyType = new Label();
             tabControl = new TabControl();
             tabHeadersPage = new TabPage();
             dataGridViewHeader = new DataGridView();
@@ -71,8 +73,6 @@
             cmbReqMethod = new ComboBox();
             lblReqMethod = new Label();
             btnRun = new Button();
-            cmbRequestBodyType = new ComboBox();
-            lblRequetBodyType = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             tabControl.SuspendLayout();
@@ -242,6 +242,7 @@
             trOutput.Name = "trOutput";
             trOutput.Size = new Size(484, 306);
             trOutput.TabIndex = 18;
+            trOutput.AfterSelect += trOutput_AfterSelect;
             trOutput.NodeMouseClick += trOutput_NodeMouseClick;
             // 
             // lblResponseOutput
@@ -358,6 +359,23 @@
             groupBox2.TabIndex = 28;
             groupBox2.TabStop = false;
             groupBox2.Text = "Resource";
+            // 
+            // cmbRequestBodyType
+            // 
+            cmbRequestBodyType.FormattingEnabled = true;
+            cmbRequestBodyType.Location = new Point(342, 118);
+            cmbRequestBodyType.Name = "cmbRequestBodyType";
+            cmbRequestBodyType.Size = new Size(138, 23);
+            cmbRequestBodyType.TabIndex = 29;
+            // 
+            // lblRequetBodyType
+            // 
+            lblRequetBodyType.AutoSize = true;
+            lblRequetBodyType.Location = new Point(261, 121);
+            lblRequetBodyType.Name = "lblRequetBodyType";
+            lblRequetBodyType.Size = new Size(61, 15);
+            lblRequetBodyType.TabIndex = 28;
+            lblRequetBodyType.Text = "Body Type";
             // 
             // tabControl
             // 
@@ -483,23 +501,6 @@
             btnRun.TabIndex = 29;
             btnRun.Text = "Run";
             btnRun.UseVisualStyleBackColor = true;
-            // 
-            // cmbRequestBodyType
-            // 
-            cmbRequestBodyType.FormattingEnabled = true;
-            cmbRequestBodyType.Location = new Point(342, 118);
-            cmbRequestBodyType.Name = "cmbRequestBodyType";
-            cmbRequestBodyType.Size = new Size(138, 23);
-            cmbRequestBodyType.TabIndex = 29;
-            // 
-            // lblRequetBodyType
-            // 
-            lblRequetBodyType.AutoSize = true;
-            lblRequetBodyType.Location = new Point(261, 121);
-            lblRequetBodyType.Name = "lblRequetBodyType";
-            lblRequetBodyType.Size = new Size(61, 15);
-            lblRequetBodyType.TabIndex = 28;
-            lblRequetBodyType.Text = "Body Type";
             // 
             // frmRestClient
             // 
