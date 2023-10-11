@@ -1,4 +1,6 @@
-﻿using Connector.Models;
+﻿using Connector.Entities;
+using Connector.Models;
+using RestSharp;
 using Serilog;
 using System.Reflection;
 
