@@ -250,12 +250,11 @@ namespace Connector
 
                 var json = JToken.Parse(_data);
 
-                var nexturl = json.SelectToken(requestModel.NextUrl);
+                var nexturl = json.SelectToken(requestModel.NextUrl).ToString();
 
-                requestModel.NextUrl = nexturl.ToString();
-
-                while (requestModel.NextUrl != null)
+                while (nexturl != null)
                 {
+                    requestModel.Uri = nexturl;
                     ProcessRequest(apiExecutor, client, requestModel);
                 }
             }
