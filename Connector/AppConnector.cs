@@ -71,7 +71,7 @@ namespace Connector
             _client.Dispose();
         }
 
-        public string Excute()
+        public void Excute()
         {
             var apiDetails = apiDetailService.GetAll();
             foreach (var api in apiDetails)
@@ -116,6 +116,7 @@ namespace Connector
                         Uri = request.ResourceUrl ?? "",
                         Headers = headers,
                         Parameters = parameters,
+                        NextUrl = request.NextUrl
                     };
 
                     string response = ProcessRequest(apiExecutor, _client, requestModel);
@@ -124,9 +125,10 @@ namespace Connector
 
                     var nexturl = json.SelectToken(request.NextUrl);
 
+
                     _client.Dispose();
 
-                    return nexturl.ToString();
+
                 }
             }
         }
@@ -168,13 +170,13 @@ namespace Connector
             //}
 
 
-            while (nexturl != null)
-            {
-                var next = new GetRequestBuilder()
-                          .WithUrl(nexturl.ToString())
-                          .AddHeader(headers)
-                          .AddParameters(parameters);
-            }
+            //while (nexturl != null)
+            //{
+            //    var next = new GetRequestBuilder()
+            //              .WithUrl(nexturl.ToString())
+            //              .AddHeader(headers)
+            //              .AddParameters(parameters);
+            //}
         }
 
         /// <summary>Runs the asynchronous.</summary>
@@ -245,6 +247,17 @@ namespace Connector
 
                 //Save file in JSON
                 response.SaveInFile(path);
+
+                var json = JToken.Parse(_data);
+
+                var nexturl = json.SelectToken(requestModel.NextUrl);
+
+                requestModel.NextUrl = nexturl.ToString();
+
+                while (requestModel.NextUrl != null)
+                {
+                    ProcessRequest(apiExecutor, client, requestModel);
+                }
             }
             return _data;
         }
