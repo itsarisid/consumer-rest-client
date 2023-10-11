@@ -27,6 +27,7 @@ namespace Connector.Client
             //cmbContentType.DataSource = Enum.GetValues(typeof(ContentType));
             apiDetailService = new Service<ApiDetail>(new Repository<ApiDetail>());
             apiRequestService = new Service<ApiRequest>(new Repository<ApiRequest>());
+            btnSave.Enabled = false;
         }
 
         private void frmRestClient_Load(object sender, EventArgs e)
@@ -38,8 +39,6 @@ namespace Connector.Client
                 var root = JToken.Load(jsonReader);
                 DisplayTreeView(root, Path.GetFileNameWithoutExtension(path));
             }
-
-            //trOutput.SetObjectAsJson(new AppSettings());
         }
 
         private void DisplayTreeView(JToken root, string rootName)
@@ -185,6 +184,7 @@ namespace Connector.Client
             var ancestorsAndSelf = e.Node.FullPath.Split(trOutput.PathSeparator.ToCharArray());
             string node = string.Join(".", ancestorsAndSelf);
             txtNextUrl.Text = node;
+            btnSave.Enabled = true;
         }
     }
 }
